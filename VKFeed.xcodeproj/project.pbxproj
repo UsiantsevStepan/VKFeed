@@ -3,27 +3,33 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		156821C5DBCD999518DA0AC9 /* Pods_VKFeed.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC5E47A79D7B48157220CFED /* Pods_VKFeed.framework */; };
 		B196E23624D598410090439E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B196E23524D598410090439E /* AppDelegate.swift */; };
 		B196E23824D598410090439E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B196E23724D598410090439E /* SceneDelegate.swift */; };
-		B196E23A24D598410090439E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B196E23924D598410090439E /* ViewController.swift */; };
-		B196E23D24D598410090439E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B196E23B24D598410090439E /* Main.storyboard */; };
+		B196E23A24D598410090439E /* AuthorizationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B196E23924D598410090439E /* AuthorizationViewController.swift */; };
 		B196E23F24D598430090439E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B196E23E24D598430090439E /* Assets.xcassets */; };
 		B196E24224D598430090439E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B196E24024D598430090439E /* LaunchScreen.storyboard */; };
+		B1B8249424D81CB400123296 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1B8249324D81CB400123296 /* FeedViewController.swift */; };
+		B1C29AC924D6AD0000702B16 /* AuthorizationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1C29AC824D6AD0000702B16 /* AuthorizationManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		59CDC62E4D98E17DC20F10EB /* Pods-VKFeed.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VKFeed.debug.xcconfig"; path = "Target Support Files/Pods-VKFeed/Pods-VKFeed.debug.xcconfig"; sourceTree = "<group>"; };
+		AAE7BAB488C1A42A771BF4BE /* Pods-VKFeed.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VKFeed.release.xcconfig"; path = "Target Support Files/Pods-VKFeed/Pods-VKFeed.release.xcconfig"; sourceTree = "<group>"; };
 		B196E23224D598410090439E /* VKFeed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VKFeed.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B196E23524D598410090439E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B196E23724D598410090439E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		B196E23924D598410090439E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		B196E23C24D598410090439E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		B196E23924D598410090439E /* AuthorizationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationViewController.swift; sourceTree = "<group>"; };
 		B196E23E24D598430090439E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B196E24124D598430090439E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B196E24324D598430090439E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B1B8249324D81CB400123296 /* FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
+		B1C29AC824D6AD0000702B16 /* AuthorizationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationManager.swift; sourceTree = "<group>"; };
+		FC5E47A79D7B48157220CFED /* Pods_VKFeed.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VKFeed.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,17 +37,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				156821C5DBCD999518DA0AC9 /* Pods_VKFeed.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		76775FDA26AC754CC833E945 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				59CDC62E4D98E17DC20F10EB /* Pods-VKFeed.debug.xcconfig */,
+				AAE7BAB488C1A42A771BF4BE /* Pods-VKFeed.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		A5147890632373FD9DF1CBFE /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				FC5E47A79D7B48157220CFED /* Pods_VKFeed.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		B196E22924D598410090439E = {
 			isa = PBXGroup;
 			children = (
 				B196E23424D598410090439E /* VKFeed */,
 				B196E23324D598410090439E /* Products */,
+				76775FDA26AC754CC833E945 /* Pods */,
+				A5147890632373FD9DF1CBFE /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -58,8 +84,9 @@
 			children = (
 				B196E23524D598410090439E /* AppDelegate.swift */,
 				B196E23724D598410090439E /* SceneDelegate.swift */,
-				B196E23924D598410090439E /* ViewController.swift */,
-				B196E23B24D598410090439E /* Main.storyboard */,
+				B196E23924D598410090439E /* AuthorizationViewController.swift */,
+				B1B8249324D81CB400123296 /* FeedViewController.swift */,
+				B1C29AC824D6AD0000702B16 /* AuthorizationManager.swift */,
 				B196E23E24D598430090439E /* Assets.xcassets */,
 				B196E24024D598430090439E /* LaunchScreen.storyboard */,
 				B196E24324D598430090439E /* Info.plist */,
@@ -74,9 +101,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B196E24624D598430090439E /* Build configuration list for PBXNativeTarget "VKFeed" */;
 			buildPhases = (
+				0A3815E824F8A984694212CA /* [CP] Check Pods Manifest.lock */,
 				B196E22E24D598410090439E /* Sources */,
 				B196E22F24D598410090439E /* Frameworks */,
 				B196E23024D598410090439E /* Resources */,
+				580A79119C1D174CEEF22BD6 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -127,18 +156,61 @@
 			files = (
 				B196E24224D598430090439E /* LaunchScreen.storyboard in Resources */,
 				B196E23F24D598430090439E /* Assets.xcassets in Resources */,
-				B196E23D24D598410090439E /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0A3815E824F8A984694212CA /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-VKFeed-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		580A79119C1D174CEEF22BD6 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-VKFeed/Pods-VKFeed-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-VKFeed/Pods-VKFeed-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-VKFeed/Pods-VKFeed-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		B196E22E24D598410090439E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B196E23A24D598410090439E /* ViewController.swift in Sources */,
+				B196E23A24D598410090439E /* AuthorizationViewController.swift in Sources */,
+				B1C29AC924D6AD0000702B16 /* AuthorizationManager.swift in Sources */,
+				B1B8249424D81CB400123296 /* FeedViewController.swift in Sources */,
 				B196E23624D598410090439E /* AppDelegate.swift in Sources */,
 				B196E23824D598410090439E /* SceneDelegate.swift in Sources */,
 			);
@@ -147,14 +219,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		B196E23B24D598410090439E /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				B196E23C24D598410090439E /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		B196E24024D598430090439E /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -282,11 +346,13 @@
 		};
 		B196E24724D598430090439E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 59CDC62E4D98E17DC20F10EB /* Pods-VKFeed.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9F4WFMQ34H;
 				INFOPLIST_FILE = VKFeed/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -294,17 +360,19 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.StepanUsiantsev.VKFeed;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
 		B196E24824D598430090439E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AAE7BAB488C1A42A771BF4BE /* Pods-VKFeed.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9F4WFMQ34H;
 				INFOPLIST_FILE = VKFeed/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -312,7 +380,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.StepanUsiantsev.VKFeed;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
