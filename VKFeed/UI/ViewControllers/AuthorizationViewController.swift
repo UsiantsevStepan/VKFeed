@@ -11,7 +11,7 @@ import UIKit
 class AuthorizationViewController: UIViewController {
     
     private var authenticationService: AuthorizationManager = AppDelegate.shared.authenticationService
-
+    
     let loginButton: UIButton = {
         let button = UIButton()
         button.setTitle("Sign In", for: .normal)
@@ -32,7 +32,7 @@ class AuthorizationViewController: UIViewController {
         setupLayout()
         
     }
-
+    
     private func setupLayout() {
         loginButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         loginButton.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
@@ -43,6 +43,5 @@ class AuthorizationViewController: UIViewController {
     @objc func loginButtonAction(sender: UIButton) {
         authenticationService.wakeUpSession()
     }
-
 }
 

@@ -17,8 +17,6 @@ protocol AuthenticationManagerDelegate: class {
 
 class AuthorizationManager: NSObject, VKSdkDelegate, VKSdkUIDelegate {
     
-    static let shared = AuthorizationManager()
-    
     private let vkSDK: VKSdk
     private var appId = "7555630"
     
@@ -36,7 +34,6 @@ class AuthorizationManager: NSObject, VKSdkDelegate, VKSdkUIDelegate {
         if result.token != nil {
             delegate?.authenticationServiceSignIn()
         }
-        print(result.error!)
     }
     
     func vkSdkUserAuthorizationFailed() {
