@@ -27,7 +27,10 @@ class NetworkManager {
 extension NetworkManager: Network {
     
     func getData(with endpoint: EndpointProtocol, completion: @escaping ((Result<Data, Error>) -> Void)) {
-        guard let request = performRequest(for: endpoint) else { return }
+        guard let request = performRequest(for: endpoint) else {
+            completion(.failure(NetworkManagerError.requestError))
+            return
+        }
         
         sendRequest(request, completion: completion)
     }
@@ -54,12 +57,19 @@ extension NetworkManager: Network {
             
             if let error = error {
                 completion(.failure(error))
-                return
             }
             guard let data = data else { return }
             completion(.success(data))
             
         }
         task.resume()
+    }
+}
+
+enum NetworkManagerError: LocalizedError {
+    case requestError
+    
+    var errorDescription: String? {
+        return "The request url is wrong"
     }
 }

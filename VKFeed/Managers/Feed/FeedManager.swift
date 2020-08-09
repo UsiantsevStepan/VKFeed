@@ -19,9 +19,11 @@ class FeedManager {
             switch result {
             case let .failure(error):
                 completion(.failure(error))
-                return
             case let .success(data):
-                guard let feedListData = self.dataParser.parse(withData: data, to: FeedListData.self) else { return }
+                guard let feedListData = self.dataParser.parse(withData: data, to: FeedListData.self) else {
+                    completion(.failure(FeedManagerError.parseError))
+                    return
+                }
                 let postCellModels = self.createPostCellModel(from: feedListData)
                 completion(.success(postCellModels))
             }
@@ -40,5 +42,13 @@ class FeedManager {
             
             return PostCellModel(postText: item.text, postUserFirstName: profile?.firstName, postUserLastName: profile?.lastName)
         }
+    }
+}
+
+enum FeedManagerError: LocalizedError {
+    case parseError
+    
+    var errorDescription: String? {
+        return "Data hasn't been parsed or has been parsed incorrectly"
     }
 }

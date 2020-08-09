@@ -32,7 +32,7 @@ class FeedViewController: UIViewController {
                 guard let self = self else { return }
                 switch result {
                 case let .failure(error):
-                    return
+                    self.showError(error)
                 case let .success(data):
                     self.feedList = data
                 }
@@ -55,7 +55,6 @@ class FeedViewController: UIViewController {
 
 extension FeedViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        //        return friendsList.count
         return feedList.count
     }
     

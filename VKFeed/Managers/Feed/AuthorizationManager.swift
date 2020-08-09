@@ -63,5 +63,4 @@ class AuthorizationManager: NSObject, VKSdkDelegate, VKSdkUIDelegate {
             }
         }
     }
-    
 }

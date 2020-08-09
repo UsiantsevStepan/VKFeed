@@ -16,6 +16,7 @@
 		B15B2CAC24DE8D4200FCD0E3 /* DataParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = B15B2CAB24DE8D4200FCD0E3 /* DataParser.swift */; };
 		B15B2CAE24DE8E4400FCD0E3 /* FeedManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B15B2CAD24DE8E4400FCD0E3 /* FeedManager.swift */; };
 		B15B2CB024DEAA4900FCD0E3 /* PostCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B15B2CAF24DEAA4900FCD0E3 /* PostCellModel.swift */; };
+		B186BF3A24DFF8A000C69476 /* UIViewController+ErrorHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = B186BF3924DFF8A000C69476 /* UIViewController+ErrorHandling.swift */; };
 		B196E23624D598410090439E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B196E23524D598410090439E /* AppDelegate.swift */; };
 		B196E23A24D598410090439E /* AuthorizationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B196E23924D598410090439E /* AuthorizationViewController.swift */; };
 		B196E23F24D598430090439E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B196E23E24D598430090439E /* Assets.xcassets */; };
@@ -35,6 +36,7 @@
 		B15B2CAB24DE8D4200FCD0E3 /* DataParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataParser.swift; sourceTree = "<group>"; };
 		B15B2CAD24DE8E4400FCD0E3 /* FeedManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedManager.swift; sourceTree = "<group>"; };
 		B15B2CAF24DEAA4900FCD0E3 /* PostCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCellModel.swift; sourceTree = "<group>"; };
+		B186BF3924DFF8A000C69476 /* UIViewController+ErrorHandling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+ErrorHandling.swift"; sourceTree = "<group>"; };
 		B196E23224D598410090439E /* VKFeed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VKFeed.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B196E23524D598410090439E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B196E23924D598410090439E /* AuthorizationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationViewController.swift; sourceTree = "<group>"; };
@@ -188,6 +190,7 @@
 				B186BF3424DFEEB600C69476 /* UI */,
 				B186BF3624DFEEDA00C69476 /* Model */,
 				B196E23524D598410090439E /* AppDelegate.swift */,
+				B186BF3924DFF8A000C69476 /* UIViewController+ErrorHandling.swift */,
 				B196E23E24D598430090439E /* Assets.xcassets */,
 				B196E24024D598430090439E /* LaunchScreen.storyboard */,
 				B196E24324D598430090439E /* Info.plist */,
@@ -311,6 +314,7 @@
 			files = (
 				B11DC05D24D92B5900B3AE5A /* EndpointProtocol.swift in Sources */,
 				B15B2CB024DEAA4900FCD0E3 /* PostCellModel.swift in Sources */,
+				B186BF3A24DFF8A000C69476 /* UIViewController+ErrorHandling.swift in Sources */,
 				B196E23A24D598410090439E /* AuthorizationViewController.swift in Sources */,
 				B1C29AC924D6AD0000702B16 /* AuthorizationManager.swift in Sources */,
 				B11DC05F24D92C7E00B3AE5A /* ApiEndpoint.swift in Sources */,
