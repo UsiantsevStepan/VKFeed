@@ -7,5 +7,6 @@ target 'VKFeed' do
 
   # Pods for VKFeed
   pod "VK-ios-sdk"
+  pod "Kingfisher", "~> 5.0" 
 
 end

@@ -40,7 +40,7 @@ class FeedManager {
         return feedData.response.items.map { item -> PostCellModel in
             let profile = profiles[item.sourceId]
             
-            return PostCellModel(postText: item.text, postUserFirstName: profile?.firstName, postUserLastName: profile?.lastName)
+            return PostCellModel(postText: item.text, postUserFirstName: profile?.firstName, postUserLastName: profile?.lastName, postUserPhotoUrl: profile?.userPhotoUrl)
         }
     }
 }

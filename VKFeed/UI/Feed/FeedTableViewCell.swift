@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import Kingfisher
 
 class FeedTableViewCell: UITableViewCell {
     
@@ -15,10 +16,9 @@ class FeedTableViewCell: UITableViewCell {
     private var stackView = UIStackView()
     private var userView = UIView()
     private var cellView = UIView()
-
-    var userLabel = UILabel()
-
-    var postTextView = UITextView()
+    private var postTextView = UITextView()
+    private var userLabel = UILabel()
+    private var userPhoto = UIImageView(frame: .zero)
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -38,6 +38,7 @@ class FeedTableViewCell: UITableViewCell {
         cellView.addSubview(stackView)
         stackView.addArrangedSubview(userView)
         userView.addSubview(userLabel)
+        userView.addSubview(userPhoto)
         stackView.addArrangedSubview(postTextView)
     }
     
@@ -48,23 +49,24 @@ class FeedTableViewCell: UITableViewCell {
         cellView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10).isActive = true
         cellView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10).isActive = true
         
-//        stackView.translatesAutoresizingMaskIntoConstraints = false
-//        stackView.topAnchor.constraint(equalTo: self.topAnchor, constant: 10).isActive = true
-//        stackView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10).isActive = true
-//        stackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10).isActive = true
-//        stackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10).isActive = true
-//
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.topAnchor.constraint(equalTo: cellView.topAnchor).isActive = true
         stackView.bottomAnchor.constraint(equalTo: cellView.bottomAnchor).isActive = true
         stackView.trailingAnchor.constraint(equalTo: cellView.trailingAnchor).isActive = true
         stackView.leadingAnchor.constraint(equalTo: cellView.leadingAnchor).isActive = true
         
+        userPhoto.translatesAutoresizingMaskIntoConstraints = false
+        userPhoto.topAnchor.constraint(equalTo: userView.topAnchor, constant: 5).isActive = true
+        userPhoto.leadingAnchor.constraint(equalTo: userView.leadingAnchor, constant: 5).isActive = true
+        userPhoto.bottomAnchor.constraint(equalTo: userView.bottomAnchor, constant: -5).isActive = true
+        userPhoto.heightAnchor.constraint(equalToConstant: Constants.imageSize).isActive = true
+        userPhoto.widthAnchor.constraint(equalToConstant: Constants.imageSize).isActive = true
+        
         userLabel.translatesAutoresizingMaskIntoConstraints = false
-        userLabel.topAnchor.constraint(equalTo: userView.topAnchor).isActive = true
-        userLabel.trailingAnchor.constraint(equalTo: userView.trailingAnchor, constant: 0).isActive = true
-        userLabel.leadingAnchor.constraint(equalTo: userView.leadingAnchor, constant: 0).isActive = true
-        userLabel.bottomAnchor.constraint(equalTo: userView.bottomAnchor).isActive = true
+        userLabel.topAnchor.constraint(equalTo: userView.topAnchor, constant: 10).isActive = true
+        userLabel.trailingAnchor.constraint(equalTo: userView.trailingAnchor, constant: -5).isActive = true
+        userLabel.leadingAnchor.constraint(equalTo: userPhoto.trailingAnchor, constant: 5).isActive = true
+        
         
         postTextView.translatesAutoresizingMaskIntoConstraints = false
         postTextView.trailingAnchor.constraint(equalTo: stackView.trailingAnchor, constant: -5).isActive = true
@@ -85,6 +87,8 @@ class FeedTableViewCell: UITableViewCell {
         stackView.frame = cellView.bounds
         stackView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         
+        userPhoto.layer.cornerRadius = Constants.imageSize / 2
+        userPhoto.clipsToBounds = true
         
         userLabel.font = UIFont.systemFont(ofSize: 20)
         
@@ -106,5 +110,15 @@ class FeedTableViewCell: UITableViewCell {
         
         postTextView.isHidden = (postCellModel.postText ?? "").isEmpty
         postTextView.text = postCellModel.postText
+        
+        userPhoto.kf.indicatorType = .activity
+        userPhoto.kf.setImage(with: URL(string: postCellModel.postUserPhotoUrl ?? ""))
+    }
+}
+
+private extension FeedTableViewCell {
+    
+    struct  Constants {
+        static let imageSize: CGFloat = 50
     }
 }
