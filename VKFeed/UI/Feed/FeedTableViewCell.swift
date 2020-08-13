@@ -11,25 +11,21 @@ import UIKit
 
 class FeedTableViewCell: UITableViewCell {
     
-    var postUser: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 25)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    var postLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 15)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
+    private var feedViewController = FeedViewController()
+    private var stackView = UIStackView()
+    private var userView = UIView()
+    private var cellView = UIView()
+
+    var userLabel = UILabel()
+
+    var postTextView = UITextView()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        setupSubviews()
-        setupConstraints()
+        addSubviews()
+        setConstraints()
+        configureSubviews()
         
     }
     
@@ -37,20 +33,78 @@ class FeedTableViewCell: UITableViewCell {
         super.init(coder: coder)
     }
     
-    private func setupSubviews() {
-        self.addSubview(postUser)
-        self.addSubview(postLabel)
+    func addSubviews() {
+        self.addSubview(cellView)
+        cellView.addSubview(stackView)
+        stackView.addArrangedSubview(userView)
+        userView.addSubview(userLabel)
+        stackView.addArrangedSubview(postTextView)
     }
     
-    private func setupConstraints() {
-        postUser.topAnchor.constraint(equalTo: self.topAnchor, constant: 15).isActive = true
-        postUser.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        postUser.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -15).isActive = true
-        postUser.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 15).isActive = true
+    func setConstraints() {
+        cellView.translatesAutoresizingMaskIntoConstraints = false
+        cellView.topAnchor.constraint(equalTo: self.topAnchor, constant: 10).isActive = true
+        cellView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10).isActive = true
+        cellView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10).isActive = true
+        cellView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10).isActive = true
         
-        postLabel.topAnchor.constraint(equalTo: postUser.bottomAnchor, constant: 15).isActive = true
-        postLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -15).isActive = true
-        postLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -15).isActive = true
-        postLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 15).isActive = true
+//        stackView.translatesAutoresizingMaskIntoConstraints = false
+//        stackView.topAnchor.constraint(equalTo: self.topAnchor, constant: 10).isActive = true
+//        stackView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10).isActive = true
+//        stackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10).isActive = true
+//        stackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10).isActive = true
+//
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.topAnchor.constraint(equalTo: cellView.topAnchor).isActive = true
+        stackView.bottomAnchor.constraint(equalTo: cellView.bottomAnchor).isActive = true
+        stackView.trailingAnchor.constraint(equalTo: cellView.trailingAnchor).isActive = true
+        stackView.leadingAnchor.constraint(equalTo: cellView.leadingAnchor).isActive = true
+        
+        userLabel.translatesAutoresizingMaskIntoConstraints = false
+        userLabel.topAnchor.constraint(equalTo: userView.topAnchor).isActive = true
+        userLabel.trailingAnchor.constraint(equalTo: userView.trailingAnchor, constant: 0).isActive = true
+        userLabel.leadingAnchor.constraint(equalTo: userView.leadingAnchor, constant: 0).isActive = true
+        userLabel.bottomAnchor.constraint(equalTo: userView.bottomAnchor).isActive = true
+        
+        postTextView.translatesAutoresizingMaskIntoConstraints = false
+        postTextView.trailingAnchor.constraint(equalTo: stackView.trailingAnchor, constant: -5).isActive = true
+        postTextView.leadingAnchor.constraint(equalTo: stackView.leadingAnchor, constant: 5).isActive = true
+    }
+    
+    func configureSubviews() {
+        cellView.backgroundColor = UIColor.white
+        cellView.layer.cornerRadius = 5
+        cellView.layer.shadowOffset = .zero
+        cellView.layer.shadowColor = UIColor.black.cgColor
+        cellView.layer.shadowRadius = 3.5
+        cellView.layer.shadowOpacity = 0.15
+        
+        stackView.axis = .vertical
+        stackView.distribution = .equalSpacing
+        stackView.spacing = 5
+        stackView.frame = cellView.bounds
+        stackView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        
+        
+        userLabel.font = UIFont.systemFont(ofSize: 20)
+        
+        postTextView.font = UIFont.systemFont(ofSize: 15)
+        postTextView.isEditable = false
+        postTextView.isScrollEnabled = false
+        postTextView.isUserInteractionEnabled = true
+        postTextView.isSelectable = true
+        let padding = postTextView.textContainer.lineFragmentPadding
+        postTextView.textContainerInset = UIEdgeInsets(top: 0, left: -padding, bottom: 0, right: -padding)
+        postTextView.dataDetectorTypes = .all
+    }
+    
+    func configure(with postCellModel: PostCellModel) {
+        let postUserLastName = postCellModel.postUserLastName ?? ""
+        let postUserFirstName = postCellModel.postUserFirstName ?? ""
+        let postUserFullName = postUserLastName + " " + postUserFirstName
+        userLabel.text = postUserFullName
+        
+        postTextView.isHidden = (postCellModel.postText ?? "").isEmpty
+        postTextView.text = postCellModel.postText
     }
 }

@@ -15,7 +15,7 @@ class FeedViewController: UIViewController {
     private let feedManager = FeedManager()
     private let cellId = "cellId"
     
-    private var feedList = [PostCellModel]() {
+    var feedList = [PostCellModel]() {
         didSet {
             tableView.reloadData()
         }
@@ -24,6 +24,8 @@ class FeedViewController: UIViewController {
     override func viewDidLoad() {
         tableView.delegate = self
         tableView.dataSource = self
+        
+        tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
         
         setupLayout()
         
@@ -60,13 +62,16 @@ extension FeedViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! FeedTableViewCell
-        let postUserLastName = feedList[indexPath.row].postUserLastName ?? ""
-        let postUserFirstName = feedList[indexPath.row].postUserFirstName ?? ""
-        let postUserFullName = postUserLastName + " " + postUserFirstName
-        cell.postUser.text = postUserFullName
-        
-        cell.postLabel.text = feedList[indexPath.row].postText
+        cell.configure(with: feedList[indexPath.row])
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }
