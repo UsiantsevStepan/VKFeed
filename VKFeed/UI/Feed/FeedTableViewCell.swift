@@ -19,6 +19,7 @@ class FeedTableViewCell: UITableViewCell {
     private var postTextView = UITextView()
     private var userLabel = UILabel()
     private var userPhoto = UIImageView(frame: .zero)
+    private var postDateLabel = UILabel()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -39,6 +40,7 @@ class FeedTableViewCell: UITableViewCell {
         stackView.addArrangedSubview(userView)
         userView.addSubview(userLabel)
         userView.addSubview(userPhoto)
+        userView.addSubview(postDateLabel)
         stackView.addArrangedSubview(postTextView)
     }
     
@@ -51,26 +53,30 @@ class FeedTableViewCell: UITableViewCell {
         
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.topAnchor.constraint(equalTo: cellView.topAnchor).isActive = true
-        stackView.bottomAnchor.constraint(equalTo: cellView.bottomAnchor).isActive = true
-        stackView.trailingAnchor.constraint(equalTo: cellView.trailingAnchor).isActive = true
-        stackView.leadingAnchor.constraint(equalTo: cellView.leadingAnchor).isActive = true
+        stackView.bottomAnchor.constraint(equalTo: cellView.bottomAnchor, constant: -10).isActive = true
+        stackView.trailingAnchor.constraint(equalTo: cellView.trailingAnchor, constant: -10).isActive = true
+        stackView.leadingAnchor.constraint(equalTo: cellView.leadingAnchor, constant: 10).isActive = true
         
         userPhoto.translatesAutoresizingMaskIntoConstraints = false
         userPhoto.topAnchor.constraint(equalTo: userView.topAnchor, constant: 5).isActive = true
-        userPhoto.leadingAnchor.constraint(equalTo: userView.leadingAnchor, constant: 5).isActive = true
+        userPhoto.leadingAnchor.constraint(equalTo: userView.leadingAnchor).isActive = true
         userPhoto.bottomAnchor.constraint(equalTo: userView.bottomAnchor, constant: -5).isActive = true
         userPhoto.heightAnchor.constraint(equalToConstant: Constants.imageSize).isActive = true
         userPhoto.widthAnchor.constraint(equalToConstant: Constants.imageSize).isActive = true
         
         userLabel.translatesAutoresizingMaskIntoConstraints = false
-        userLabel.topAnchor.constraint(equalTo: userView.topAnchor, constant: 10).isActive = true
-        userLabel.trailingAnchor.constraint(equalTo: userView.trailingAnchor, constant: -5).isActive = true
+        userLabel.topAnchor.constraint(equalTo: userView.topAnchor, constant: 5).isActive = true
+        userLabel.trailingAnchor.constraint(equalTo: userView.trailingAnchor).isActive = true
         userLabel.leadingAnchor.constraint(equalTo: userPhoto.trailingAnchor, constant: 5).isActive = true
         
+        postDateLabel.translatesAutoresizingMaskIntoConstraints = false
+        postDateLabel.trailingAnchor.constraint(equalTo: userView.trailingAnchor).isActive = true
+        postDateLabel.leadingAnchor.constraint(equalTo: userPhoto.trailingAnchor, constant: 5).isActive = true
+        postDateLabel.bottomAnchor.constraint(equalTo: userView.bottomAnchor, constant: -10).isActive = true
         
         postTextView.translatesAutoresizingMaskIntoConstraints = false
-        postTextView.trailingAnchor.constraint(equalTo: stackView.trailingAnchor, constant: -5).isActive = true
-        postTextView.leadingAnchor.constraint(equalTo: stackView.leadingAnchor, constant: 5).isActive = true
+        postTextView.trailingAnchor.constraint(equalTo: stackView.trailingAnchor).isActive = true
+        postTextView.leadingAnchor.constraint(equalTo: stackView.leadingAnchor).isActive = true
     }
     
     func configureSubviews() {
@@ -92,6 +98,9 @@ class FeedTableViewCell: UITableViewCell {
         
         userLabel.font = UIFont.systemFont(ofSize: 20)
         
+        postDateLabel.font = UIFont.systemFont(ofSize: 15)
+        postDateLabel.textColor = .gray
+        
         postTextView.font = UIFont.systemFont(ofSize: 15)
         postTextView.isEditable = false
         postTextView.isScrollEnabled = false
@@ -108,6 +117,8 @@ class FeedTableViewCell: UITableViewCell {
         let postUserFullName = postUserLastName + " " + postUserFirstName
         userLabel.text = postUserFullName
         
+        postDateLabel.text = postCellModel.postDate
+        
         postTextView.isHidden = (postCellModel.postText ?? "").isEmpty
         postTextView.text = postCellModel.postText
         
@@ -118,7 +129,7 @@ class FeedTableViewCell: UITableViewCell {
 
 private extension FeedTableViewCell {
     
-    struct  Constants {
+    struct Constants {
         static let imageSize: CGFloat = 50
     }
 }

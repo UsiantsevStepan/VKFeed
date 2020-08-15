@@ -10,6 +10,14 @@ import Foundation
 
 class FeedManager {
     
+    enum FeedManagerError: LocalizedError {
+        case parseError
+        
+        var errorDescription: String? {
+            return "Data hasn't been parsed or has been parsed incorrectly"
+        }
+    }
+    
     let dataParser = DataParser()
     let networkManager = NetworkManager()
     
@@ -40,15 +48,16 @@ class FeedManager {
         return feedData.response.items.map { item -> PostCellModel in
             let profile = profiles[item.sourceId]
             
-            return PostCellModel(postText: item.text, postUserFirstName: profile?.firstName, postUserLastName: profile?.lastName, postUserPhotoUrl: profile?.userPhotoUrl)
+            return PostCellModel(postText: item.text, postUserFirstName: profile?.firstName, postUserLastName: profile?.lastName, postUserPhotoUrl: profile?.userPhotoUrl, postDate: dateFormat(with: item.date))
         }
     }
 }
 
-enum FeedManagerError: LocalizedError {
-    case parseError
-    
-    var errorDescription: String? {
-        return "Data hasn't been parsed or has been parsed incorrectly"
+private extension FeedManager {
+    func dateFormat(with date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = .current
+        dateFormatter.dateFormat = "d MMM' at 'h:mm"
+        return dateFormatter.string(from: date)
     }
 }

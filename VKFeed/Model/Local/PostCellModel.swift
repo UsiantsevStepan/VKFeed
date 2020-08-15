@@ -14,4 +14,5 @@ struct PostCellModel {
     let postUserFirstName: String?
     let postUserLastName: String?
     let postUserPhotoUrl: String?
+    let postDate: String?
 }

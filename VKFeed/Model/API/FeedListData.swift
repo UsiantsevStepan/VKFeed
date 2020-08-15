@@ -20,10 +20,12 @@ struct Response: Codable {
 struct Item: Codable {
     let sourceId: Int
     let text: String
+    let date: Date
     
     enum CodingKeys: String, CodingKey {
         case sourceId = "source_id"
         case text
+        case date
     }
 }
 
@@ -37,6 +39,6 @@ struct Profile: Codable {
         case id
         case firstName = "first_name"
         case lastName = "last_name"
-        case userPhotoUrl = "photo_50"
+        case userPhotoUrl = "photo_100"
     }
 }

@@ -12,8 +12,14 @@ class DataParser {
     
     private let decoder: JSONDecoder
     
-    init(decoder: JSONDecoder = JSONDecoder()) {
-        self.decoder = decoder
+    init(decoder: JSONDecoder? = nil) {
+        if let jsonDecoder = decoder {
+            self.decoder = jsonDecoder
+        } else {
+            let jsonDecoder = JSONDecoder()
+            jsonDecoder.dateDecodingStrategy = .secondsSince1970
+            self.decoder = jsonDecoder
+        }
     }
     
     func parse<T: Decodable>(withData data: Data, to type: T.Type) -> T? {
