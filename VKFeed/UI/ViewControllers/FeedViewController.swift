@@ -13,7 +13,7 @@ class FeedViewController: UIViewController {
     let tableView = UITableView()
     
     private let feedManager = FeedManager()
-    private let cellId = "cellId"
+    private let tableCellId = "cellId"
     
     var feedList = [PostCellModel]() {
         didSet {
@@ -50,7 +50,7 @@ class FeedViewController: UIViewController {
         tableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
         tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
         tableView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        tableView.register(FeedTableViewCell.self, forCellReuseIdentifier: cellId)
+        tableView.register(FeedTableViewCell.self, forCellReuseIdentifier: tableCellId)
         tableView.reloadData()
     }
 }
@@ -61,7 +61,7 @@ extension FeedViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! FeedTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: tableCellId, for: indexPath) as! FeedTableViewCell
         cell.configure(with: feedList[indexPath.row])
         
         return cell

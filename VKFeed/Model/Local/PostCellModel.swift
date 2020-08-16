@@ -10,9 +10,11 @@ import Foundation
 
 struct PostCellModel {
     
-    let postText: String?
-    let postUserFirstName: String?
-    let postUserLastName: String?
-    let postUserPhotoUrl: String?
-    let postDate: String?
+    let text: String?
+//    let userFirstName: String?
+//    let userLastName: String?
+    let userName: String?
+    let userPhotoUrl: String?
+    let date: String?
+    let photos: [String]?
 }

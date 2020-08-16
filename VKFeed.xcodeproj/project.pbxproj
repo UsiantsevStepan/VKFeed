@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		156821C5DBCD999518DA0AC9 /* Pods_VKFeed.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC5E47A79D7B48157220CFED /* Pods_VKFeed.framework */; };
+		B10E678524E919D000696EFA /* FeedCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10E678424E919D000696EFA /* FeedCollectionViewCell.swift */; };
 		B11DC05D24D92B5900B3AE5A /* EndpointProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B11DC05C24D92B5900B3AE5A /* EndpointProtocol.swift */; };
 		B11DC05F24D92C7E00B3AE5A /* ApiEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = B11DC05E24D92C7E00B3AE5A /* ApiEndpoint.swift */; };
 		B11DC06124D9320700B3AE5A /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B11DC06024D9320600B3AE5A /* NetworkManager.swift */; };
@@ -28,6 +29,7 @@
 /* Begin PBXFileReference section */
 		59CDC62E4D98E17DC20F10EB /* Pods-VKFeed.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VKFeed.debug.xcconfig"; path = "Target Support Files/Pods-VKFeed/Pods-VKFeed.debug.xcconfig"; sourceTree = "<group>"; };
 		AAE7BAB488C1A42A771BF4BE /* Pods-VKFeed.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VKFeed.release.xcconfig"; path = "Target Support Files/Pods-VKFeed/Pods-VKFeed.release.xcconfig"; sourceTree = "<group>"; };
+		B10E678424E919D000696EFA /* FeedCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCollectionViewCell.swift; sourceTree = "<group>"; };
 		B11DC05C24D92B5900B3AE5A /* EndpointProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndpointProtocol.swift; sourceTree = "<group>"; };
 		B11DC05E24D92C7E00B3AE5A /* ApiEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiEndpoint.swift; sourceTree = "<group>"; };
 		B11DC06024D9320600B3AE5A /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
@@ -136,6 +138,7 @@
 			isa = PBXGroup;
 			children = (
 				B11DC06224D9622600B3AE5A /* FeedTableViewCell.swift */,
+				B10E678424E919D000696EFA /* FeedCollectionViewCell.swift */,
 			);
 			path = Feed;
 			sourceTree = "<group>";
@@ -324,6 +327,7 @@
 				B11DC06324D9622600B3AE5A /* FeedTableViewCell.swift in Sources */,
 				B196E23624D598410090439E /* AppDelegate.swift in Sources */,
 				B15B2CAE24DE8E4400FCD0E3 /* FeedManager.swift in Sources */,
+				B10E678524E919D000696EFA /* FeedCollectionViewCell.swift in Sources */,
 				B11DC06524D97EF700B3AE5A /* FeedListData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -10,16 +10,23 @@ import Foundation
 import UIKit
 import Kingfisher
 
-class FeedTableViewCell: UITableViewCell {
+class FeedTableViewCell: UITableViewCell, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+    
     
     private var feedViewController = FeedViewController()
+    private var cellView = UIView()
     private var stackView = UIStackView()
     private var userView = UIView()
-    private var cellView = UIView()
-    private var postTextView = UITextView()
-    private var userLabel = UILabel()
     private var userPhoto = UIImageView(frame: .zero)
+    private var userLabel = UILabel()
     private var postDateLabel = UILabel()
+    private var postTextView = UITextView()
+    private let collectionView: UICollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout.init())
+    private let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout.init()
+    
+    private let collectionCellId = "collectionCellId"
+    
+    private var photos = [String]()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -34,6 +41,26 @@ class FeedTableViewCell: UITableViewCell {
         super.init(coder: coder)
     }
     
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return photos.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: collectionCellId, for: indexPath) as! FeedCollectionViewCell
+        let attachedPhoto = photos[indexPath.row]
+        cell.attachedPhoto.kf.indicatorType = .activity
+        cell.attachedPhoto.kf.setImage(with: URL(string: attachedPhoto))
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        if photos.count == 1 {
+            return collectionView.frame.size
+        } else {
+            return CGSize(width: collectionView.frame.size.height, height: collectionView.frame.size.height)
+        }
+    }
+    
     func addSubviews() {
         self.addSubview(cellView)
         cellView.addSubview(stackView)
@@ -42,6 +69,9 @@ class FeedTableViewCell: UITableViewCell {
         userView.addSubview(userPhoto)
         userView.addSubview(postDateLabel)
         stackView.addArrangedSubview(postTextView)
+        
+        stackView.addArrangedSubview(collectionView)
+        collectionView.register(FeedCollectionViewCell.self, forCellWithReuseIdentifier: collectionCellId)
     }
     
     func setConstraints() {
@@ -74,9 +104,8 @@ class FeedTableViewCell: UITableViewCell {
         postDateLabel.leadingAnchor.constraint(equalTo: userPhoto.trailingAnchor, constant: 5).isActive = true
         postDateLabel.bottomAnchor.constraint(equalTo: userView.bottomAnchor, constant: -10).isActive = true
         
-        postTextView.translatesAutoresizingMaskIntoConstraints = false
-        postTextView.trailingAnchor.constraint(equalTo: stackView.trailingAnchor).isActive = true
-        postTextView.leadingAnchor.constraint(equalTo: stackView.leadingAnchor).isActive = true
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.heightAnchor.constraint(equalToConstant: 180).isActive = true
     }
     
     func configureSubviews() {
@@ -109,21 +138,28 @@ class FeedTableViewCell: UITableViewCell {
         let padding = postTextView.textContainer.lineFragmentPadding
         postTextView.textContainerInset = UIEdgeInsets(top: 0, left: -padding, bottom: 0, right: -padding)
         postTextView.dataDetectorTypes = .all
+        
+        layout.scrollDirection = .horizontal
+        collectionView.setCollectionViewLayout(layout, animated: true)
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        collectionView.reloadData()
     }
     
     func configure(with postCellModel: PostCellModel) {
-        let postUserLastName = postCellModel.postUserLastName ?? ""
-        let postUserFirstName = postCellModel.postUserFirstName ?? ""
-        let postUserFullName = postUserLastName + " " + postUserFirstName
-        userLabel.text = postUserFullName
         
-        postDateLabel.text = postCellModel.postDate
+        userLabel.text = postCellModel.userName
         
-        postTextView.isHidden = (postCellModel.postText ?? "").isEmpty
-        postTextView.text = postCellModel.postText
+        postDateLabel.text = postCellModel.date
+        
+        postTextView.isHidden = (postCellModel.text ?? "").isEmpty
+        postTextView.text = postCellModel.text
         
         userPhoto.kf.indicatorType = .activity
-        userPhoto.kf.setImage(with: URL(string: postCellModel.postUserPhotoUrl ?? ""))
+        userPhoto.kf.setImage(with: URL(string: postCellModel.userPhotoUrl ?? ""))
+        
+        photos = postCellModel.photos ?? []
+        collectionView.isHidden = photos.isEmpty
     }
 }
 

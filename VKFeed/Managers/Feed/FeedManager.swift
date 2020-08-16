@@ -48,7 +48,13 @@ class FeedManager {
         return feedData.response.items.map { item -> PostCellModel in
             let profile = profiles[item.sourceId]
             
-            return PostCellModel(postText: item.text, postUserFirstName: profile?.firstName, postUserLastName: profile?.lastName, postUserPhotoUrl: profile?.userPhotoUrl, postDate: dateFormat(with: item.date))
+            let photos = item.attachments?.compactMap { $0.photo?.necessarySize?.url }
+            
+            let userFirstName = profile?.firstName ?? ""
+            let userLastName = profile?.lastName ?? ""
+            let userFullName = userFirstName + " " + userLastName
+            
+            return PostCellModel(text: item.text, userName: userFullName, userPhotoUrl: profile?.userPhotoUrl, date: dateFormat(with: item.date), photos: photos)
         }
     }
 }
