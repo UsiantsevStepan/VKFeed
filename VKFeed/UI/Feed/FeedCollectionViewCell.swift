@@ -8,10 +8,13 @@
 
 import Foundation
 import UIKit
+import Kingfisher
 
 class FeedCollectionViewCell: UICollectionViewCell {
 
-    var attachedPhoto = UIImageView()
+    static let cellId = "PhotoCollectionViewCell"
+    
+    let imageView = UIImageView()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -26,20 +29,25 @@ class FeedCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func configure(with photoUrl: String) {
+        imageView.kf.indicatorType = .activity
+        imageView.kf.setImage(with: URL(string: photoUrl))
+    }
+    
     func addSubviews() {
-        self.addSubview(attachedPhoto)
+        self.addSubview(imageView)
         
     }
     
     func setConstrainst() {
-        attachedPhoto.translatesAutoresizingMaskIntoConstraints = false
-        attachedPhoto.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
-        attachedPhoto.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
-        attachedPhoto.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
-        attachedPhoto.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
+        imageView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
+        imageView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
+        imageView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
     }
     
     func configureSubviews() {
-        attachedPhoto.contentMode = .scaleAspectFill
+        imageView.contentMode = .scaleAspectFill
     }
 }

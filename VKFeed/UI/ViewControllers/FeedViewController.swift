@@ -55,7 +55,7 @@ class FeedViewController: UIViewController {
     }
 }
 
-extension FeedViewController: UITableViewDelegate, UITableViewDataSource {
+extension FeedViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return feedList.count
     }
@@ -66,7 +66,9 @@ extension FeedViewController: UITableViewDelegate, UITableViewDataSource {
         
         return cell
     }
-    
+}
+
+extension FeedViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
     }

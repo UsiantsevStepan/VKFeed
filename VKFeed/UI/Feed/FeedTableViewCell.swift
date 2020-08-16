@@ -10,21 +10,16 @@ import Foundation
 import UIKit
 import Kingfisher
 
-class FeedTableViewCell: UITableViewCell, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+class FeedTableViewCell: UITableViewCell {
     
-    
-    private var feedViewController = FeedViewController()
-    private var cellView = UIView()
+    private var postView = UIView()
     private var stackView = UIStackView()
     private var userView = UIView()
-    private var userPhoto = UIImageView(frame: .zero)
-    private var userLabel = UILabel()
-    private var postDateLabel = UILabel()
-    private var postTextView = UITextView()
+    private var userPhotoImageView = UIImageView(frame: .zero)
+    private var userNameLabel = UILabel()
+    private var dateLabel = UILabel()
+    private var textView = UITextView()
     private let collectionView: UICollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout.init())
-    private let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout.init()
-    
-    private let collectionCellId = "collectionCellId"
     
     private var photos = [String]()
     
@@ -41,104 +36,85 @@ class FeedTableViewCell: UITableViewCell, UICollectionViewDataSource, UICollecti
         super.init(coder: coder)
     }
     
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return photos.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: collectionCellId, for: indexPath) as! FeedCollectionViewCell
-        let attachedPhoto = photos[indexPath.row]
-        cell.attachedPhoto.kf.indicatorType = .activity
-        cell.attachedPhoto.kf.setImage(with: URL(string: attachedPhoto))
-        return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        if photos.count == 1 {
-            return collectionView.frame.size
-        } else {
-            return CGSize(width: collectionView.frame.size.height, height: collectionView.frame.size.height)
-        }
-    }
-    
     func addSubviews() {
-        self.addSubview(cellView)
-        cellView.addSubview(stackView)
+        self.addSubview(postView)
+        postView.addSubview(stackView)
         stackView.addArrangedSubview(userView)
-        userView.addSubview(userLabel)
-        userView.addSubview(userPhoto)
-        userView.addSubview(postDateLabel)
-        stackView.addArrangedSubview(postTextView)
+        userView.addSubview(userNameLabel)
+        userView.addSubview(userPhotoImageView)
+        userView.addSubview(dateLabel)
+        stackView.addArrangedSubview(textView)
         
         stackView.addArrangedSubview(collectionView)
-        collectionView.register(FeedCollectionViewCell.self, forCellWithReuseIdentifier: collectionCellId)
+        collectionView.register(FeedCollectionViewCell.self, forCellWithReuseIdentifier: FeedCollectionViewCell.cellId)
     }
     
     func setConstraints() {
-        cellView.translatesAutoresizingMaskIntoConstraints = false
-        cellView.topAnchor.constraint(equalTo: self.topAnchor, constant: 10).isActive = true
-        cellView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10).isActive = true
-        cellView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10).isActive = true
-        cellView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10).isActive = true
+        postView.translatesAutoresizingMaskIntoConstraints = false
+        postView.topAnchor.constraint(equalTo: self.topAnchor, constant: 10).isActive = true
+        postView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10).isActive = true
+        postView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10).isActive = true
+        postView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10).isActive = true
         
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.topAnchor.constraint(equalTo: cellView.topAnchor).isActive = true
-        stackView.bottomAnchor.constraint(equalTo: cellView.bottomAnchor, constant: -10).isActive = true
-        stackView.trailingAnchor.constraint(equalTo: cellView.trailingAnchor, constant: -10).isActive = true
-        stackView.leadingAnchor.constraint(equalTo: cellView.leadingAnchor, constant: 10).isActive = true
+        stackView.topAnchor.constraint(equalTo: postView.topAnchor).isActive = true
+        stackView.bottomAnchor.constraint(equalTo: postView.bottomAnchor, constant: -10).isActive = true
+        stackView.trailingAnchor.constraint(equalTo: postView.trailingAnchor, constant: -10).isActive = true
+        stackView.leadingAnchor.constraint(equalTo: postView.leadingAnchor, constant: 10).isActive = true
         
-        userPhoto.translatesAutoresizingMaskIntoConstraints = false
-        userPhoto.topAnchor.constraint(equalTo: userView.topAnchor, constant: 5).isActive = true
-        userPhoto.leadingAnchor.constraint(equalTo: userView.leadingAnchor).isActive = true
-        userPhoto.bottomAnchor.constraint(equalTo: userView.bottomAnchor, constant: -5).isActive = true
-        userPhoto.heightAnchor.constraint(equalToConstant: Constants.imageSize).isActive = true
-        userPhoto.widthAnchor.constraint(equalToConstant: Constants.imageSize).isActive = true
+        userPhotoImageView.translatesAutoresizingMaskIntoConstraints = false
+        userPhotoImageView.topAnchor.constraint(equalTo: userView.topAnchor, constant: 5).isActive = true
+        userPhotoImageView.leadingAnchor.constraint(equalTo: userView.leadingAnchor).isActive = true
+        userPhotoImageView.bottomAnchor.constraint(equalTo: userView.bottomAnchor, constant: -5).isActive = true
+        userPhotoImageView.heightAnchor.constraint(equalToConstant: Constants.imageSize).isActive = true
+        userPhotoImageView.widthAnchor.constraint(equalToConstant: Constants.imageSize).isActive = true
         
-        userLabel.translatesAutoresizingMaskIntoConstraints = false
-        userLabel.topAnchor.constraint(equalTo: userView.topAnchor, constant: 5).isActive = true
-        userLabel.trailingAnchor.constraint(equalTo: userView.trailingAnchor).isActive = true
-        userLabel.leadingAnchor.constraint(equalTo: userPhoto.trailingAnchor, constant: 5).isActive = true
+        userNameLabel.translatesAutoresizingMaskIntoConstraints = false
+        userNameLabel.topAnchor.constraint(equalTo: userView.topAnchor, constant: 5).isActive = true
+        userNameLabel.trailingAnchor.constraint(equalTo: userView.trailingAnchor).isActive = true
+        userNameLabel.leadingAnchor.constraint(equalTo: userPhotoImageView.trailingAnchor, constant: 5).isActive = true
         
-        postDateLabel.translatesAutoresizingMaskIntoConstraints = false
-        postDateLabel.trailingAnchor.constraint(equalTo: userView.trailingAnchor).isActive = true
-        postDateLabel.leadingAnchor.constraint(equalTo: userPhoto.trailingAnchor, constant: 5).isActive = true
-        postDateLabel.bottomAnchor.constraint(equalTo: userView.bottomAnchor, constant: -10).isActive = true
+        dateLabel.translatesAutoresizingMaskIntoConstraints = false
+        dateLabel.trailingAnchor.constraint(equalTo: userView.trailingAnchor).isActive = true
+        dateLabel.leadingAnchor.constraint(equalTo: userPhotoImageView.trailingAnchor, constant: 5).isActive = true
+        dateLabel.bottomAnchor.constraint(equalTo: userView.bottomAnchor, constant: -10).isActive = true
         
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.heightAnchor.constraint(equalToConstant: 180).isActive = true
     }
     
     func configureSubviews() {
-        cellView.backgroundColor = UIColor.white
-        cellView.layer.cornerRadius = 5
-        cellView.layer.shadowOffset = .zero
-        cellView.layer.shadowColor = UIColor.black.cgColor
-        cellView.layer.shadowRadius = 3.5
-        cellView.layer.shadowOpacity = 0.15
+        postView.backgroundColor = UIColor.white
+        postView.layer.cornerRadius = 5
+        postView.layer.shadowOffset = .zero
+        postView.layer.shadowColor = UIColor.black.cgColor
+        postView.layer.shadowRadius = 3.5
+        postView.layer.shadowOpacity = 0.15
         
         stackView.axis = .vertical
         stackView.distribution = .equalSpacing
         stackView.spacing = 5
-        stackView.frame = cellView.bounds
+        stackView.frame = postView.bounds
         stackView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         
-        userPhoto.layer.cornerRadius = Constants.imageSize / 2
-        userPhoto.clipsToBounds = true
+        userPhotoImageView.layer.cornerRadius = Constants.imageSize / 2
+        userPhotoImageView.clipsToBounds = true
         
-        userLabel.font = UIFont.systemFont(ofSize: 20)
+        userNameLabel.font = UIFont.systemFont(ofSize: 20)
         
-        postDateLabel.font = UIFont.systemFont(ofSize: 15)
-        postDateLabel.textColor = .gray
+        dateLabel.font = UIFont.systemFont(ofSize: 15)
+        dateLabel.textColor = .gray
         
-        postTextView.font = UIFont.systemFont(ofSize: 15)
-        postTextView.isEditable = false
-        postTextView.isScrollEnabled = false
-        postTextView.isUserInteractionEnabled = true
-        postTextView.isSelectable = true
-        let padding = postTextView.textContainer.lineFragmentPadding
-        postTextView.textContainerInset = UIEdgeInsets(top: 0, left: -padding, bottom: 0, right: -padding)
-        postTextView.dataDetectorTypes = .all
+        textView.font = UIFont.systemFont(ofSize: 15)
+        textView.isEditable = false
+        textView.isScrollEnabled = false
+        textView.isUserInteractionEnabled = true
+        textView.isSelectable = true
+        let padding = textView.textContainer.lineFragmentPadding
+        textView.textContainerInset = UIEdgeInsets(top: 0, left: -padding, bottom: 0, right: -padding)
+        textView.dataDetectorTypes = .all
         
+        let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout.init()
         layout.scrollDirection = .horizontal
         collectionView.setCollectionViewLayout(layout, animated: true)
         collectionView.dataSource = self
@@ -148,20 +124,47 @@ class FeedTableViewCell: UITableViewCell, UICollectionViewDataSource, UICollecti
     
     func configure(with postCellModel: PostCellModel) {
         
-        userLabel.text = postCellModel.userName
+        userNameLabel.text = postCellModel.userName
         
-        postDateLabel.text = postCellModel.date
+        dateLabel.text = postCellModel.date
         
-        postTextView.isHidden = (postCellModel.text ?? "").isEmpty
-        postTextView.text = postCellModel.text
+        textView.isHidden = (postCellModel.text ?? "").isEmpty
+        textView.text = postCellModel.text
         
-        userPhoto.kf.indicatorType = .activity
-        userPhoto.kf.setImage(with: URL(string: postCellModel.userPhotoUrl ?? ""))
+        userPhotoImageView.kf.indicatorType = .activity
+        userPhotoImageView.kf.setImage(with: URL(string: postCellModel.userPhotoUrl ?? ""))
         
         photos = postCellModel.photos ?? []
         collectionView.isHidden = photos.isEmpty
     }
 }
+
+extension FeedTableViewCell: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return photos.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FeedCollectionViewCell.cellId, for: indexPath) as! FeedCollectionViewCell
+        cell.configure(with: photos[indexPath.row])
+        return cell
+    }
+}
+
+extension FeedTableViewCell: UICollectionViewDelegate {
+    
+}
+
+extension FeedTableViewCell: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        if photos.count == 1 {
+            return collectionView.frame.size
+        } else {
+            return CGSize(width: collectionView.frame.size.height, height: collectionView.frame.size.height)
+        }
+    }
+}
+
 
 private extension FeedTableViewCell {
     
