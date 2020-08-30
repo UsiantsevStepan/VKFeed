@@ -25,11 +25,5 @@ extension EndpointProtocol {
     var userId: String {
         return VKSdk.accessToken()?.userId ?? ""
     }
-    var filters: String {
-        return "post"
-    }
-    var sourceIds: String {
-        return "friends"
-    }
     
 }

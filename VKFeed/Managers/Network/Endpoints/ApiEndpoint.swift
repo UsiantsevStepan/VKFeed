@@ -10,7 +10,7 @@ import Foundation
 import VK_ios_sdk
 
 public enum VkApi {
-    case friendsList
+    case getUser
     case feedList
 }
 
@@ -21,8 +21,8 @@ extension VkApi: EndpointProtocol {
     
     var fullURL: String {
         switch self {
-        case .friendsList:
-            return baseURL + "/friends.get"
+        case .getUser:
+            return baseURL + "/users.get"
         case .feedList:
             return baseURL + "/newsfeed.get"
         }
@@ -30,10 +30,10 @@ extension VkApi: EndpointProtocol {
     
     var params: [String : String] {
         switch self {
-        case .friendsList:
-            return ["user_id": userId, "access_token": accessToken, "v": apiVersion, "filters": filters, "source_ids": sourceIds]
+        case .getUser:
+            return ["access_token": accessToken, "v": apiVersion, "fields": "photo_100"]
         case .feedList:
-            return ["user_id": userId, "access_token": accessToken, "v": apiVersion, "filters": filters, "source_ids": sourceIds]
+            return ["user_id": userId, "access_token": accessToken, "v": apiVersion, "filters": "post", "source_ids": "friends"]
         }
     }
 }

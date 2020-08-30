@@ -38,6 +38,23 @@ class FeedManager {
         }
     }
     
+    func getUserData(_ completion: @escaping ((Result<TitleViewModel,Error>) -> Void)) {
+        networkManager.getData(with: VkApi.getUser) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case let .failure(error):
+                completion(.failure(error))
+            case let .success(data):
+                guard let titleViewData = self.dataParser.parse(withData: data, to: TitleViewData.self) else {
+                    completion(.failure(FeedManagerError.parseError))
+                    return
+                }
+                let userModel = self.createUserModel(from: titleViewData)
+                completion(.success(userModel))
+            }
+        }
+    }
+    
     private func createPostCellModel(from feedData: FeedListData) -> [PostCellModel] {
         let profiles = feedData.response.profiles.reduce([Int : Profile]()) { (result, profile) -> [Int : Profile] in
             var result = result
@@ -57,7 +74,17 @@ class FeedManager {
             return PostCellModel(text: item.text, userName: userFullName, userPhotoUrl: profile?.userPhotoUrl, date: dateFormat(with: item.date), photos: photos, comments: item.comments.formattedValue, likes: item.likes.formattedValue, reposts: item.reposts.formattedValue, views: item.views.formattedValue)
         }
     }
+    
+    private func createUserModel(from userData: TitleViewData) -> TitleViewModel {
+        
+        let firstName = userData.response.first?.firstName ?? ""
+        let lastName = userData.response.first?.lastName ?? ""
+        let userFullName = firstName + " " + lastName
+        
+        return TitleViewModel(userName: userFullName, userPhotoUrl: userData.response.first?.userPhotoUrl)
+    }
 }
+
 
 private extension FeedManager {
     func dateFormat(with date: Date) -> String {

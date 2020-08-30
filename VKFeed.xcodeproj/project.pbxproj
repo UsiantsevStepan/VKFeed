@@ -24,6 +24,9 @@
 		B196E24224D598430090439E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B196E24024D598430090439E /* LaunchScreen.storyboard */; };
 		B1B8249424D81CB400123296 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1B8249324D81CB400123296 /* FeedViewController.swift */; };
 		B1C29AC924D6AD0000702B16 /* AuthorizationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1C29AC824D6AD0000702B16 /* AuthorizationManager.swift */; };
+		B1E3AAE624FBB3FD00ECC43F /* TitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1E3AAE524FBB3FD00ECC43F /* TitleView.swift */; };
+		B1E3AAE824FBC1F800ECC43F /* TitleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1E3AAE724FBC1F800ECC43F /* TitleViewModel.swift */; };
+		B1E3AAEA24FBC2F700ECC43F /* TitleViewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1E3AAE924FBC2F700ECC43F /* TitleViewData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,6 +50,9 @@
 		B196E24324D598430090439E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B1B8249324D81CB400123296 /* FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
 		B1C29AC824D6AD0000702B16 /* AuthorizationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationManager.swift; sourceTree = "<group>"; };
+		B1E3AAE524FBB3FD00ECC43F /* TitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleView.swift; sourceTree = "<group>"; };
+		B1E3AAE724FBC1F800ECC43F /* TitleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleViewModel.swift; sourceTree = "<group>"; };
+		B1E3AAE924FBC2F700ECC43F /* TitleViewData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleViewData.swift; sourceTree = "<group>"; };
 		FC5E47A79D7B48157220CFED /* Pods_VKFeed.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VKFeed.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -139,6 +145,7 @@
 			children = (
 				B11DC06224D9622600B3AE5A /* FeedTableViewCell.swift */,
 				B10E678424E919D000696EFA /* FeedCollectionViewCell.swift */,
+				B1E3AAE524FBB3FD00ECC43F /* TitleView.swift */,
 			);
 			path = Feed;
 			sourceTree = "<group>";
@@ -156,6 +163,7 @@
 			isa = PBXGroup;
 			children = (
 				B15B2CAF24DEAA4900FCD0E3 /* PostCellModel.swift */,
+				B1E3AAE724FBC1F800ECC43F /* TitleViewModel.swift */,
 			);
 			path = Local;
 			sourceTree = "<group>";
@@ -164,6 +172,7 @@
 			isa = PBXGroup;
 			children = (
 				B11DC06424D97EF700B3AE5A /* FeedListData.swift */,
+				B1E3AAE924FBC2F700ECC43F /* TitleViewData.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -322,13 +331,16 @@
 				B1C29AC924D6AD0000702B16 /* AuthorizationManager.swift in Sources */,
 				B11DC05F24D92C7E00B3AE5A /* ApiEndpoint.swift in Sources */,
 				B11DC06124D9320700B3AE5A /* NetworkManager.swift in Sources */,
+				B1E3AAEA24FBC2F700ECC43F /* TitleViewData.swift in Sources */,
 				B1B8249424D81CB400123296 /* FeedViewController.swift in Sources */,
 				B15B2CAC24DE8D4200FCD0E3 /* DataParser.swift in Sources */,
 				B11DC06324D9622600B3AE5A /* FeedTableViewCell.swift in Sources */,
 				B196E23624D598410090439E /* AppDelegate.swift in Sources */,
 				B15B2CAE24DE8E4400FCD0E3 /* FeedManager.swift in Sources */,
 				B10E678524E919D000696EFA /* FeedCollectionViewCell.swift in Sources */,
+				B1E3AAE824FBC1F800ECC43F /* TitleViewModel.swift in Sources */,
 				B11DC06524D97EF700B3AE5A /* FeedListData.swift in Sources */,
+				B1E3AAE624FBB3FD00ECC43F /* TitleView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

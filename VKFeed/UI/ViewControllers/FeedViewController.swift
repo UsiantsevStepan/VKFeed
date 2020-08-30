@@ -14,6 +14,7 @@ class FeedViewController: UIViewController {
     
     private let feedManager = FeedManager()
     private let tableCellId = "cellId"
+    private let titleView = TitleView()
     
     var feedList = [PostCellModel]() {
         didSet {
@@ -24,6 +25,8 @@ class FeedViewController: UIViewController {
     override func viewDidLoad() {
         tableView.delegate = self
         tableView.dataSource = self
+        
+        navigationItem.titleView = titleView
         
         tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
         
@@ -37,6 +40,18 @@ class FeedViewController: UIViewController {
                     self.showError(error)
                 case let .success(data):
                     self.feedList = data
+                }
+            }
+        }
+        
+        feedManager.getUserData { [weak self] result in
+            DispatchQueue.main.async {
+                guard let self = self else { return }
+                switch result {
+                case let .failure(error):
+                    self.showError(error)
+                case let .success(userData):
+                    self.titleView.configure(with: userData)
                 }
             }
         }
