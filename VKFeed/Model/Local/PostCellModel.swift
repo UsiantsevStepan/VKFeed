@@ -11,10 +11,12 @@ import Foundation
 struct PostCellModel {
     
     let text: String?
-//    let userFirstName: String?
-//    let userLastName: String?
     let userName: String?
     let userPhotoUrl: String?
     let date: String?
     let photos: [String]?
+    let comments: String?
+    let likes: String?
+    let reposts: String?
+    let views: String?
 }

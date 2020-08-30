@@ -13,13 +13,26 @@ import Kingfisher
 class FeedTableViewCell: UITableViewCell {
     
     private var postView = UIView()
+    
     private var stackView = UIStackView()
+    
     private var userView = UIView()
     private var userPhotoImageView = UIImageView(frame: .zero)
     private var userNameLabel = UILabel()
     private var dateLabel = UILabel()
     private var textView = UITextView()
+    
     private let collectionView: UICollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout.init())
+    
+    private let postFooterView = UIView()
+    private let likesImageView = UIImageView(image: #imageLiteral(resourceName: "like"))
+    private let likesAmountLabel = UILabel()
+    private let commentsImageView = UIImageView(image: #imageLiteral(resourceName: "comment"))
+    private let commentsAmountLabel = UILabel()
+    private let repostsImageView = UIImageView(image: #imageLiteral(resourceName: "share"))
+    private let repostsAmountLabel = UILabel()
+    private let viewsImageView = UIImageView(image: #imageLiteral(resourceName: "eye"))
+    private let viewsAmountLabel = UILabel()
     
     private var photos = [String]()
     
@@ -40,16 +53,66 @@ class FeedTableViewCell: UITableViewCell {
         self.addSubview(postView)
         postView.addSubview(stackView)
         stackView.addArrangedSubview(userView)
-        userView.addSubview(userNameLabel)
-        userView.addSubview(userPhotoImageView)
-        userView.addSubview(dateLabel)
+        [userNameLabel, userPhotoImageView, dateLabel].forEach(userView.addSubview)
+        
         stackView.addArrangedSubview(textView)
+        
         
         stackView.addArrangedSubview(collectionView)
         collectionView.register(FeedCollectionViewCell.self, forCellWithReuseIdentifier: FeedCollectionViewCell.cellId)
+        
+        stackView.addArrangedSubview(postFooterView)
+        [likesImageView, likesAmountLabel, commentsImageView, commentsAmountLabel, repostsImageView, repostsAmountLabel, viewsImageView, viewsAmountLabel].forEach(postFooterView.addSubview)
     }
     
     func setConstraints() {
+        likesImageView.translatesAutoresizingMaskIntoConstraints = false
+        likesImageView.topAnchor.constraint(equalTo: postFooterView.topAnchor).isActive = true
+        likesImageView.bottomAnchor.constraint(equalTo: postFooterView.bottomAnchor).isActive = true
+        likesImageView.leadingAnchor.constraint(equalTo: postFooterView.leadingAnchor).isActive = true
+        likesImageView.heightAnchor.constraint(equalToConstant: Constants.iconImageSize).isActive = true
+        
+        likesAmountLabel.translatesAutoresizingMaskIntoConstraints = false
+        likesAmountLabel.topAnchor.constraint(equalTo: postFooterView.topAnchor).isActive = true
+        likesAmountLabel.bottomAnchor.constraint(equalTo: postFooterView.bottomAnchor).isActive = true
+        likesAmountLabel.leadingAnchor.constraint(equalTo: likesImageView.trailingAnchor, constant: 4).isActive = true
+        likesAmountLabel.widthAnchor.constraint(equalToConstant: 40).isActive = true
+        
+        commentsImageView.translatesAutoresizingMaskIntoConstraints = false
+        commentsImageView.topAnchor.constraint(equalTo: postFooterView.topAnchor).isActive = true
+        commentsImageView.bottomAnchor.constraint(equalTo: postFooterView.bottomAnchor).isActive = true
+        commentsImageView.leadingAnchor.constraint(equalTo: likesAmountLabel.trailingAnchor, constant: 8).isActive = true
+        commentsImageView.heightAnchor.constraint(equalToConstant: Constants.iconImageSize).isActive = true
+        
+        commentsAmountLabel.translatesAutoresizingMaskIntoConstraints = false
+        commentsAmountLabel.topAnchor.constraint(equalTo: postFooterView.topAnchor).isActive = true
+        commentsAmountLabel.bottomAnchor.constraint(equalTo: postFooterView.bottomAnchor).isActive = true
+        commentsAmountLabel.leadingAnchor.constraint(equalTo: commentsImageView.trailingAnchor, constant: 4).isActive = true
+        commentsAmountLabel.widthAnchor.constraint(equalToConstant: 40).isActive = true
+        
+        repostsImageView.translatesAutoresizingMaskIntoConstraints = false
+        repostsImageView.topAnchor.constraint(equalTo: postFooterView.topAnchor).isActive = true
+        repostsImageView.bottomAnchor.constraint(equalTo: postFooterView.bottomAnchor).isActive = true
+        repostsImageView.leadingAnchor.constraint(equalTo: commentsAmountLabel.trailingAnchor, constant: 8).isActive = true
+        repostsImageView.heightAnchor.constraint(equalToConstant: Constants.iconImageSize).isActive = true
+        
+        repostsAmountLabel.translatesAutoresizingMaskIntoConstraints = false
+        repostsAmountLabel.topAnchor.constraint(equalTo: postFooterView.topAnchor).isActive = true
+        repostsAmountLabel.bottomAnchor.constraint(equalTo: postFooterView.bottomAnchor).isActive = true
+        repostsAmountLabel.leadingAnchor.constraint(equalTo: repostsImageView.trailingAnchor, constant: 4).isActive = true
+        repostsAmountLabel.widthAnchor.constraint(equalToConstant: 40).isActive = true
+        
+        viewsImageView.translatesAutoresizingMaskIntoConstraints = false
+        viewsImageView.topAnchor.constraint(equalTo: postFooterView.topAnchor).isActive = true
+        viewsImageView.bottomAnchor.constraint(equalTo: postFooterView.bottomAnchor).isActive = true
+        viewsImageView.trailingAnchor.constraint(equalTo: viewsAmountLabel.leadingAnchor, constant: -4).isActive = true
+        viewsImageView.heightAnchor.constraint(equalToConstant: Constants.iconImageSize).isActive = true
+        
+        viewsAmountLabel.translatesAutoresizingMaskIntoConstraints = false
+        viewsAmountLabel.topAnchor.constraint(equalTo: postFooterView.topAnchor).isActive = true
+        viewsAmountLabel.bottomAnchor.constraint(equalTo: postFooterView.bottomAnchor).isActive = true
+        viewsAmountLabel.trailingAnchor.constraint(equalTo: postFooterView.trailingAnchor).isActive = true
+        
         postView.translatesAutoresizingMaskIntoConstraints = false
         postView.topAnchor.constraint(equalTo: self.topAnchor, constant: 10).isActive = true
         postView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10).isActive = true
@@ -66,8 +129,8 @@ class FeedTableViewCell: UITableViewCell {
         userPhotoImageView.topAnchor.constraint(equalTo: userView.topAnchor, constant: 5).isActive = true
         userPhotoImageView.leadingAnchor.constraint(equalTo: userView.leadingAnchor).isActive = true
         userPhotoImageView.bottomAnchor.constraint(equalTo: userView.bottomAnchor, constant: -5).isActive = true
-        userPhotoImageView.heightAnchor.constraint(equalToConstant: Constants.imageSize).isActive = true
-        userPhotoImageView.widthAnchor.constraint(equalToConstant: Constants.imageSize).isActive = true
+        userPhotoImageView.heightAnchor.constraint(equalToConstant: Constants.userImageSize).isActive = true
+        userPhotoImageView.widthAnchor.constraint(equalToConstant: Constants.userImageSize).isActive = true
         
         userNameLabel.translatesAutoresizingMaskIntoConstraints = false
         userNameLabel.topAnchor.constraint(equalTo: userView.topAnchor, constant: 5).isActive = true
@@ -97,10 +160,30 @@ class FeedTableViewCell: UITableViewCell {
         stackView.frame = postView.bounds
         stackView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         
-        userPhotoImageView.layer.cornerRadius = Constants.imageSize / 2
+        userPhotoImageView.layer.cornerRadius = Constants.userImageSize / 2
         userPhotoImageView.clipsToBounds = true
         
         userNameLabel.font = UIFont.systemFont(ofSize: 20)
+        
+        likesImageView.contentMode = .scaleAspectFill
+        
+        likesAmountLabel.font = UIFont.systemFont(ofSize: 14)
+        likesAmountLabel.textColor = .gray
+        
+        commentsImageView.contentMode = .scaleAspectFill
+        
+        commentsAmountLabel.font = UIFont.systemFont(ofSize: 14)
+        commentsAmountLabel.textColor = .gray
+        
+        repostsImageView.contentMode = .scaleAspectFill
+        
+        repostsAmountLabel.font = UIFont.systemFont(ofSize: 14)
+        repostsAmountLabel.textColor = .gray
+        
+        viewsImageView.contentMode = .scaleAspectFill
+        
+        viewsAmountLabel.font = UIFont.systemFont(ofSize: 14)
+        viewsAmountLabel.textColor = .gray
         
         dateLabel.font = UIFont.systemFont(ofSize: 15)
         dateLabel.textColor = .gray
@@ -127,6 +210,11 @@ class FeedTableViewCell: UITableViewCell {
         userNameLabel.text = postCellModel.userName
         
         dateLabel.text = postCellModel.date
+        
+        likesAmountLabel.text = postCellModel.likes
+        commentsAmountLabel.text = postCellModel.comments
+        repostsAmountLabel.text = postCellModel.reposts
+        viewsAmountLabel.text = postCellModel.views
         
         textView.isHidden = (postCellModel.text ?? "").isEmpty
         textView.text = postCellModel.text
@@ -169,6 +257,7 @@ extension FeedTableViewCell: UICollectionViewDelegateFlowLayout {
 private extension FeedTableViewCell {
     
     struct Constants {
-        static let imageSize: CGFloat = 50
+        static let userImageSize: CGFloat = 50
+        static let iconImageSize: CGFloat = 16
     }
 }

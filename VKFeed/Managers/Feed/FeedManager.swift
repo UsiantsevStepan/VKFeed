@@ -54,7 +54,7 @@ class FeedManager {
             let userLastName = profile?.lastName ?? ""
             let userFullName = userFirstName + " " + userLastName
             
-            return PostCellModel(text: item.text, userName: userFullName, userPhotoUrl: profile?.userPhotoUrl, date: dateFormat(with: item.date), photos: photos)
+            return PostCellModel(text: item.text, userName: userFullName, userPhotoUrl: profile?.userPhotoUrl, date: dateFormat(with: item.date), photos: photos, comments: item.comments.formattedValue, likes: item.likes.formattedValue, reposts: item.reposts.formattedValue, views: item.views.formattedValue)
         }
     }
 }

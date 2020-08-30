@@ -21,13 +21,35 @@ struct Item: Decodable {
     let sourceId: Int
     let text: String
     let date: Date
+    let comments: CountableItem
+    let likes: CountableItem
+    let reposts: CountableItem
+    let views: CountableItem
     let attachments: [Attachments]?
     
     enum CodingKeys: String, CodingKey {
         case sourceId = "source_id"
         case text
         case date
+        case comments
+        case likes
+        case reposts
+        case views
         case attachments
+    }
+}
+
+struct CountableItem: Decodable {
+    let count: Int
+    
+    var formattedValue: String {
+        if count >= 1000000 {
+            return ("\(count / 1000000)" + "M")
+        } else if count >= 1000 {
+            return ("\(count / 1000)" + "K")
+        } else {
+            return "\(count)"
+        }
     }
 }
 

@@ -29,9 +29,16 @@ class FeedCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        imageView.image = nil
+    }
+    
     func configure(with photoUrl: String) {
         imageView.kf.indicatorType = .activity
-        imageView.kf.setImage(with: URL(string: photoUrl))
+        imageView.kf.setImage(with: URL(string: photoUrl),
+                              placeholder: #imageLiteral(resourceName: "search"))
+        
     }
     
     func addSubviews() {
