@@ -67,49 +67,49 @@ class FeedTableViewCell: UITableViewCell {
     
     func setConstraints() {
         likesImageView.translatesAutoresizingMaskIntoConstraints = false
-        likesImageView.topAnchor.constraint(equalTo: postFooterView.topAnchor).isActive = true
+        likesImageView.topAnchor.constraint(equalTo: postFooterView.topAnchor, constant: 5).isActive = true
         likesImageView.bottomAnchor.constraint(equalTo: postFooterView.bottomAnchor).isActive = true
         likesImageView.leadingAnchor.constraint(equalTo: postFooterView.leadingAnchor).isActive = true
         likesImageView.heightAnchor.constraint(equalToConstant: Constants.iconImageSize).isActive = true
         
         likesAmountLabel.translatesAutoresizingMaskIntoConstraints = false
-        likesAmountLabel.topAnchor.constraint(equalTo: postFooterView.topAnchor).isActive = true
+        likesAmountLabel.topAnchor.constraint(equalTo: postFooterView.topAnchor, constant: 5).isActive = true
         likesAmountLabel.bottomAnchor.constraint(equalTo: postFooterView.bottomAnchor).isActive = true
         likesAmountLabel.leadingAnchor.constraint(equalTo: likesImageView.trailingAnchor, constant: 4).isActive = true
         likesAmountLabel.widthAnchor.constraint(equalToConstant: 40).isActive = true
         
         commentsImageView.translatesAutoresizingMaskIntoConstraints = false
-        commentsImageView.topAnchor.constraint(equalTo: postFooterView.topAnchor).isActive = true
+        commentsImageView.topAnchor.constraint(equalTo: postFooterView.topAnchor, constant: 5).isActive = true
         commentsImageView.bottomAnchor.constraint(equalTo: postFooterView.bottomAnchor).isActive = true
         commentsImageView.leadingAnchor.constraint(equalTo: likesAmountLabel.trailingAnchor, constant: 8).isActive = true
         commentsImageView.heightAnchor.constraint(equalToConstant: Constants.iconImageSize).isActive = true
         
         commentsAmountLabel.translatesAutoresizingMaskIntoConstraints = false
-        commentsAmountLabel.topAnchor.constraint(equalTo: postFooterView.topAnchor).isActive = true
+        commentsAmountLabel.topAnchor.constraint(equalTo: postFooterView.topAnchor, constant: 5).isActive = true
         commentsAmountLabel.bottomAnchor.constraint(equalTo: postFooterView.bottomAnchor).isActive = true
         commentsAmountLabel.leadingAnchor.constraint(equalTo: commentsImageView.trailingAnchor, constant: 4).isActive = true
         commentsAmountLabel.widthAnchor.constraint(equalToConstant: 40).isActive = true
         
         repostsImageView.translatesAutoresizingMaskIntoConstraints = false
-        repostsImageView.topAnchor.constraint(equalTo: postFooterView.topAnchor).isActive = true
+        repostsImageView.topAnchor.constraint(equalTo: postFooterView.topAnchor, constant: 5).isActive = true
         repostsImageView.bottomAnchor.constraint(equalTo: postFooterView.bottomAnchor).isActive = true
         repostsImageView.leadingAnchor.constraint(equalTo: commentsAmountLabel.trailingAnchor, constant: 8).isActive = true
         repostsImageView.heightAnchor.constraint(equalToConstant: Constants.iconImageSize).isActive = true
         
         repostsAmountLabel.translatesAutoresizingMaskIntoConstraints = false
-        repostsAmountLabel.topAnchor.constraint(equalTo: postFooterView.topAnchor).isActive = true
+        repostsAmountLabel.topAnchor.constraint(equalTo: postFooterView.topAnchor, constant: 5).isActive = true
         repostsAmountLabel.bottomAnchor.constraint(equalTo: postFooterView.bottomAnchor).isActive = true
         repostsAmountLabel.leadingAnchor.constraint(equalTo: repostsImageView.trailingAnchor, constant: 4).isActive = true
         repostsAmountLabel.widthAnchor.constraint(equalToConstant: 40).isActive = true
         
         viewsImageView.translatesAutoresizingMaskIntoConstraints = false
-        viewsImageView.topAnchor.constraint(equalTo: postFooterView.topAnchor).isActive = true
+        viewsImageView.topAnchor.constraint(equalTo: postFooterView.topAnchor, constant: 5).isActive = true
         viewsImageView.bottomAnchor.constraint(equalTo: postFooterView.bottomAnchor).isActive = true
         viewsImageView.trailingAnchor.constraint(equalTo: viewsAmountLabel.leadingAnchor, constant: -4).isActive = true
         viewsImageView.heightAnchor.constraint(equalToConstant: Constants.iconImageSize).isActive = true
         
         viewsAmountLabel.translatesAutoresizingMaskIntoConstraints = false
-        viewsAmountLabel.topAnchor.constraint(equalTo: postFooterView.topAnchor).isActive = true
+        viewsAmountLabel.topAnchor.constraint(equalTo: postFooterView.topAnchor, constant: 5).isActive = true
         viewsAmountLabel.bottomAnchor.constraint(equalTo: postFooterView.bottomAnchor).isActive = true
         viewsAmountLabel.trailingAnchor.constraint(equalTo: postFooterView.trailingAnchor).isActive = true
         

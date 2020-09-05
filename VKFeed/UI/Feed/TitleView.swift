@@ -51,7 +51,7 @@ class TitleView: UIView {
     
     func configureSubviews() {
         
-//        label.font = UIFont.boldSystemFont(ofSize: )
+        label.font = UIFont.boldSystemFont(ofSize: 20)
         
         button.imageView?.contentMode = .scaleAspectFill
         button.imageView?.layer.cornerRadius = Constants.userImageSize / 2

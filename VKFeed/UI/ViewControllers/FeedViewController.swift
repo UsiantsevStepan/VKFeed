@@ -32,29 +32,52 @@ class FeedViewController: UIViewController {
         
         setupLayout()
         
-        feedManager.getFeedData { [weak self] result in
-            DispatchQueue.main.async {
+        loadData()
+    }
+    
+    private func loadData() {
+        let group = DispatchGroup()
+        let queue = DispatchQueue.global(qos: .background)
+        
+        var feedData = [PostCellModel]()
+        var userData: TitleViewModel?
+        
+        group.enter()
+        queue.async {
+            self.feedManager.getFeedData { [weak self] result in
                 guard let self = self else { return }
                 switch result {
                 case let .failure(error):
                     self.showError(error)
+                    group.leave()
                 case let .success(data):
-                    self.feedList = data
+                    feedData = data
+                    group.leave()
                 }
             }
         }
         
-        feedManager.getUserData { [weak self] result in
-            DispatchQueue.main.async {
+        group.enter()
+        queue.async {
+            self.feedManager.getUserData { [weak self] result in
                 guard let self = self else { return }
                 switch result {
                 case let .failure(error):
                     self.showError(error)
-                case let .success(userData):
-                    self.titleView.configure(with: userData)
+                    group.leave()
+                case let .success(data):
+                    userData = data
+                    group.leave()
                 }
             }
         }
+        
+        group.notify(queue: .main) {
+            self.feedList = feedData
+            guard let unwrappedUserData = userData else { return }
+            self.titleView.configure(with: unwrappedUserData)
+        }
+        
     }
     
     private func setupLayout() {
@@ -78,6 +101,7 @@ extension FeedViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: tableCellId, for: indexPath) as! FeedTableViewCell
         cell.configure(with: feedList[indexPath.row])
+        cell.selectionStyle = .none
         
         return cell
     }
@@ -86,9 +110,5 @@ extension FeedViewController: UITableViewDataSource {
 extension FeedViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
     }
 }
