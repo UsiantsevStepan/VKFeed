@@ -27,10 +27,17 @@ class FeedViewController: UIViewController {
             tableView.reloadData()
         }
     }
+    var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        return refreshControl
+    }()
     
     override func viewDidLoad() {
         tableView.delegate = self
         tableView.dataSource = self
+        
+        refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
+        tableView.refreshControl = refreshControl
         
         navigationItem.titleView = titleView
         
@@ -41,10 +48,13 @@ class FeedViewController: UIViewController {
         loadData()
     }
     
+    @objc private func refresh(sender: UIRefreshControl) {
+        loadData()
+    }
+    
     private func loadData() {
         let group = DispatchGroup()
         let queue = DispatchQueue.global(qos: .background)
-        
         
         group.enter()
         queue.async {
@@ -83,9 +93,10 @@ class FeedViewController: UIViewController {
             } else if let unwrappedUserDataError = self.userDataError {
                 self.showError(unwrappedUserDataError)
             }
-            self.feedList += self.firstPageData
+            self.feedList = self.firstPageData
             guard let unwrappedUserData = self.userData else { return }
             self.titleView.configure(with: unwrappedUserData)
+            self.refreshControl.endRefreshing()
         }
         
     }
