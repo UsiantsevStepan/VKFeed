@@ -21,8 +21,8 @@ class FeedManager {
     let dataParser = DataParser()
     let networkManager = NetworkManager()
     
-    func getFeedData(_ completion: @escaping ((Result<[PostCellModel],Error>) -> Void)) {
-        networkManager.getData(with: VkApi.feedList) { [weak self] result in
+    func getFeedData(_ nextFrom: String? = nil, _ completion: @escaping ((Result<([PostCellModel], String?),Error>) -> Void)) {
+        networkManager.getData(with: VkApi.feedList(nextFrom: nextFrom)) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case let .failure(error):
@@ -32,8 +32,7 @@ class FeedManager {
                     completion(.failure(FeedManagerError.parseError))
                     return
                 }
-                let postCellModels = self.createPostCellModel(from: feedListData)
-                completion(.success(postCellModels))
+                completion(.success((self.createPostCellModel(from: feedListData), feedListData.response.nextFrom)))
             }
         }
     }
@@ -71,7 +70,7 @@ class FeedManager {
             let userLastName = profile?.lastName ?? ""
             let userFullName = userFirstName + " " + userLastName
             
-            return PostCellModel(text: item.text, userName: userFullName, userPhotoUrl: profile?.userPhotoUrl, date: dateFormat(with: item.date), photos: photos, comments: item.comments.formattedValue, likes: item.likes.formattedValue, reposts: item.reposts.formattedValue, views: item.views.formattedValue)
+            return  PostCellModel(text: item.text, userName: userFullName, userPhotoUrl: profile?.userPhotoUrl, date: dateFormat(with: item.date), photos: photos, comments: item.comments.formattedValue, likes: item.likes.formattedValue, reposts: item.reposts.formattedValue, views: item.views.formattedValue)
         }
     }
     

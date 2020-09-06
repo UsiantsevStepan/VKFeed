@@ -16,6 +16,12 @@ class FeedViewController: UIViewController {
     private let tableCellId = "cellId"
     private let titleView = TitleView()
     
+    var nextFrom: String?
+    var firstPageData = [PostCellModel]()
+    var userData: TitleViewModel?
+    var feedDataError: Error?
+    var userDataError: Error?
+    var isLoading = false
     var feedList = [PostCellModel]() {
         didSet {
             tableView.reloadData()
@@ -39,19 +45,18 @@ class FeedViewController: UIViewController {
         let group = DispatchGroup()
         let queue = DispatchQueue.global(qos: .background)
         
-        var feedData = [PostCellModel]()
-        var userData: TitleViewModel?
         
         group.enter()
         queue.async {
-            self.feedManager.getFeedData { [weak self] result in
+            self.feedManager.getFeedData() { [weak self] result in
                 guard let self = self else { return }
                 switch result {
                 case let .failure(error):
-                    self.showError(error)
+                    self.feedDataError = error
                     group.leave()
                 case let .success(data):
-                    feedData = data
+                    self.firstPageData = data.0
+                    self.nextFrom = data.1
                     group.leave()
                 }
             }
@@ -63,18 +68,23 @@ class FeedViewController: UIViewController {
                 guard let self = self else { return }
                 switch result {
                 case let .failure(error):
-                    self.showError(error)
+                    self.userDataError = error
                     group.leave()
                 case let .success(data):
-                    userData = data
+                    self.userData = data
                     group.leave()
                 }
             }
         }
         
         group.notify(queue: .main) {
-            self.feedList = feedData
-            guard let unwrappedUserData = userData else { return }
+            if let unwrappedFeedDataError = self.feedDataError {
+                self.showError(unwrappedFeedDataError)
+            } else if let unwrappedUserDataError = self.userDataError {
+                self.showError(unwrappedUserDataError)
+            }
+            self.feedList += self.firstPageData
+            guard let unwrappedUserData = self.userData else { return }
             self.titleView.configure(with: unwrappedUserData)
         }
         
@@ -90,6 +100,37 @@ class FeedViewController: UIViewController {
         tableView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         tableView.register(FeedTableViewCell.self, forCellReuseIdentifier: tableCellId)
         tableView.reloadData()
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let offsetY = scrollView.contentOffset.y
+        let contentHeight = scrollView.contentSize.height
+        
+        if offsetY > 0,
+            offsetY > contentHeight - scrollView.frame.height - 200 {
+            loadNextPage()
+        }
+    }
+    
+    func loadNextPage() {
+        guard !isLoading else { return }
+        isLoading = true
+        
+        DispatchQueue.global(qos: .background).async {
+            self.feedManager.getFeedData(self.nextFrom) { [weak self] result in
+                guard let self = self else { return }
+                DispatchQueue.main.async {
+                    switch result {
+                    case let .failure(error):
+                        self.showError(error)
+                    case let .success(data):
+                        self.nextFrom = data.1
+                        self.feedList += data.0
+                    }
+                    self.isLoading = false
+                }
+            }
+        }
     }
 }
 

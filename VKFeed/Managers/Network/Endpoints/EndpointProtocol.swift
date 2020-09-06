@@ -25,5 +25,8 @@ extension EndpointProtocol {
     var userId: String {
         return VKSdk.accessToken()?.userId ?? ""
     }
+    var startFrom: String {
+        return ""
+    }
     
 }

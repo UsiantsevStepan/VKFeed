@@ -11,7 +11,7 @@ import VK_ios_sdk
 
 public enum VkApi {
     case getUser
-    case feedList
+    case feedList(nextFrom: String?)
 }
 
 extension VkApi: EndpointProtocol {
@@ -32,8 +32,12 @@ extension VkApi: EndpointProtocol {
         switch self {
         case .getUser:
             return ["access_token": accessToken, "v": apiVersion, "fields": "photo_100"]
-        case .feedList:
-            return ["user_id": userId, "access_token": accessToken, "v": apiVersion, "filters": "post", "source_ids": "friends"]
+        case let .feedList(nextFrom):
+            var params = ["user_id": userId, "access_token": accessToken, "v": apiVersion, "filters": "post", "source_ids": "friends"]
+            if let nextFrom = nextFrom {
+                params["start_from"] = nextFrom
+            }
+            return params
         }
     }
 }
