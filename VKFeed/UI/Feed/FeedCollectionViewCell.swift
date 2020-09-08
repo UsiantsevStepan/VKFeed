@@ -12,7 +12,7 @@ import Kingfisher
 
 class FeedCollectionViewCell: UICollectionViewCell {
 
-    static let cellId = "PhotoCollectionViewCell"
+    static let cellId = "CollectionViewCell"
     
     let imageView = UIImageView()
     
@@ -22,7 +22,6 @@ class FeedCollectionViewCell: UICollectionViewCell {
         addSubviews()
         setConstrainst()
         configureSubviews()
-        
     }
     
     required init?(coder: NSCoder) {
@@ -38,12 +37,10 @@ class FeedCollectionViewCell: UICollectionViewCell {
         imageView.kf.indicatorType = .activity
         imageView.kf.setImage(with: URL(string: photoUrl),
                               placeholder: #imageLiteral(resourceName: "search"))
-        
     }
     
     func addSubviews() {
         self.addSubview(imageView)
-        
     }
     
     func setConstrainst() {
@@ -53,7 +50,7 @@ class FeedCollectionViewCell: UICollectionViewCell {
         imageView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
         imageView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
     }
-    
+
     func configureSubviews() {
         imageView.contentMode = .scaleAspectFill
     }

@@ -202,7 +202,6 @@ class FeedTableViewCell: UITableViewCell {
         collectionView.setCollectionViewLayout(layout, animated: true)
         collectionView.dataSource = self
         collectionView.delegate = self
-        collectionView.reloadData()
     }
     
     func configure(with postCellModel: PostCellModel) {
@@ -224,6 +223,8 @@ class FeedTableViewCell: UITableViewCell {
         
         photos = postCellModel.photos ?? []
         collectionView.isHidden = photos.isEmpty
+        
+        collectionView.reloadData()
     }
 }
 
@@ -234,7 +235,7 @@ extension FeedTableViewCell: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FeedCollectionViewCell.cellId, for: indexPath) as! FeedCollectionViewCell
-        cell.configure(with: photos[indexPath.row])
+        cell.configure(with: self.photos[indexPath.row])
         return cell
     }
 }
