@@ -38,7 +38,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AuthenticationManagerDele
         authenticationService = AuthorizationManager()
         authenticationService.delegate = self
         
-        window?.rootViewController = AuthorizationViewController()
+        authenticationService.wakeUpSession()
+        window?.rootViewController = VKSdk.isLoggedIn() ? FeedViewController() : AuthorizationViewController()
         window?.makeKeyAndVisible()
         
         return true
@@ -57,4 +58,3 @@ extension AppDelegate: FeedViewControllerDelegate {
         window?.rootViewController = AuthorizationViewController()
     }
 }
-
