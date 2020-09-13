@@ -16,11 +16,25 @@ struct Response: Decodable {
     let items: [Item]
     let profiles: [Profile]
     let nextFrom: String?
+    let groups: [Group]
     
     enum CodingKeys: String, CodingKey {
         case items
         case profiles
         case nextFrom = "next_from"
+        case groups
+    }
+}
+
+struct Group: Decodable {
+    let id: Int
+    let name: String
+    let groupPhotoUrl: String
+    
+    enum CodingKeys: String, CodingKey {
+        case id
+        case name
+        case groupPhotoUrl = "photo_100"
     }
 }
 
@@ -28,10 +42,10 @@ struct Item: Decodable {
     let sourceId: Int
     let text: String
     let date: Date
-    let comments: CountableItem
-    let likes: CountableItem
-    let reposts: CountableItem
-    let views: CountableItem
+    let comments: CountableItem?
+    let likes: CountableItem?
+    let reposts: CountableItem?
+    let views: CountableItem?
     let attachments: [Attachments]?
     
     enum CodingKeys: String, CodingKey {

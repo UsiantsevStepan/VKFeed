@@ -19,4 +19,6 @@ struct PostCellModel {
     let likes: String?
     let reposts: String?
     let views: String?
+    let groupName: String?
+    let groupPhotoUrl: String?
 }

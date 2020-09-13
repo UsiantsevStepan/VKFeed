@@ -35,8 +35,7 @@ class FeedCollectionViewCell: UICollectionViewCell {
     
     func configure(with photoUrl: String) {
         imageView.kf.indicatorType = .activity
-        imageView.kf.setImage(with: URL(string: photoUrl),
-                              placeholder: #imageLiteral(resourceName: "search"))
+        imageView.kf.setImage(with: URL(string: photoUrl))
     }
     
     func addSubviews() {

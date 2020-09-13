@@ -19,14 +19,12 @@ extension EndpointProtocol {
     var accessToken: String {
         return VKSdk.accessToken()?.accessToken ?? ""
     }
+    
     var apiVersion: String {
         return "5.122"
     }
-    var userId: String {
-        return VKSdk.accessToken()?.userId ?? ""
-    }
+    
     var startFrom: String {
         return ""
     }
-    
 }

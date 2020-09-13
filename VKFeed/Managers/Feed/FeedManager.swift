@@ -22,7 +22,7 @@ class FeedManager {
     let networkManager = NetworkManager()
     
     func getFeedData(_ nextFrom: String? = nil, _ completion: @escaping ((Result<([PostCellModel], String?),Error>) -> Void)) {
-        networkManager.getData(with: VkApi.feedList(nextFrom: nextFrom)) { [weak self] result in
+        networkManager.getData(with: VkApi.getFeed(nextFrom: nextFrom)) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case let .failure(error):
@@ -61,8 +61,18 @@ class FeedManager {
             return result
         }
         
+        let groups = feedData.response.groups.reduce([Int : Group]()) { (result, group) -> [Int : Group] in
+            
+            var result = result
+            result[-group.id] = group
+            
+            return result
+        }
+        
         return feedData.response.items.map { item -> PostCellModel in
             let profile = profiles[item.sourceId]
+            
+            let group = groups[item.sourceId]
             
             let photos = item.attachments?.compactMap { $0.photo?.necessarySize?.url }
             
@@ -70,7 +80,19 @@ class FeedManager {
             let userLastName = profile?.lastName ?? ""
             let userFullName = userFirstName + " " + userLastName
             
-            return  PostCellModel(text: item.text, userName: userFullName, userPhotoUrl: profile?.userPhotoUrl, date: dateFormat(with: item.date), photos: photos, comments: item.comments.formattedValue, likes: item.likes.formattedValue, reposts: item.reposts.formattedValue, views: item.views.formattedValue)
+            return  PostCellModel(
+                text: item.text,
+                userName: userFullName,
+                userPhotoUrl: profile?.userPhotoUrl,
+                date: dateFormat(with: item.date),
+                photos: photos,
+                comments: item.comments?.formattedValue,
+                likes: item.likes?.formattedValue,
+                reposts: item.reposts?.formattedValue,
+                views: item.views?.formattedValue,
+                groupName:  group?.name,
+                groupPhotoUrl: group?.groupPhotoUrl
+            )
         }
     }
     

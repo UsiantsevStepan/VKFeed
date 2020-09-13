@@ -23,7 +23,6 @@ class DataParser {
     }
     
     func parse<T: Decodable>(withData data: Data, to type: T.Type) -> T? {
-//        return try? decoder.decode(type, from: data)
         do {
             return try decoder.decode(type, from: data)
         } catch {

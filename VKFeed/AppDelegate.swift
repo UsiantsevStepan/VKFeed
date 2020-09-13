@@ -18,6 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AuthenticationManagerDele
     
     func authenticationServiceSignIn() {
         let feedViewController = FeedViewController()
+        feedViewController.delegate = self
         window?.rootViewController = UINavigationController(rootViewController: feedViewController)
     }
     
@@ -47,6 +48,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AuthenticationManagerDele
     func application(_ application: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey:Any] = [:]) -> Bool {
         VKSdk.processOpen(url, fromApplication: UIApplication.OpenURLOptionsKey.sourceApplication.rawValue)
         return true
+    }
+}
+
+extension AppDelegate: FeedViewControllerDelegate {
+    func logout() {
+        VKSdk.forceLogout()
+        window?.rootViewController = AuthorizationViewController()
     }
 }
 

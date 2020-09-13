@@ -206,7 +206,11 @@ class FeedTableViewCell: UITableViewCell {
     
     func configure(with postCellModel: PostCellModel) {
         
-        userNameLabel.text = postCellModel.userName
+        if postCellModel.groupName == nil {
+            userNameLabel.text = postCellModel.userName
+        } else {
+            userNameLabel.text = postCellModel.groupName
+        }
         
         dateLabel.text = postCellModel.date
         
@@ -218,12 +222,18 @@ class FeedTableViewCell: UITableViewCell {
         textView.isHidden = (postCellModel.text ?? "").isEmpty
         textView.text = postCellModel.text
         
-        userPhotoImageView.kf.indicatorType = .activity
-        userPhotoImageView.kf.setImage(with: URL(string: postCellModel.userPhotoUrl ?? ""))
+        if postCellModel.userPhotoUrl == nil {
+            userPhotoImageView.kf.indicatorType = .activity
+            userPhotoImageView.kf.setImage(with: URL(string: postCellModel.groupPhotoUrl ?? ""))
+        } else {
+            userPhotoImageView.kf.indicatorType = .activity
+            userPhotoImageView.kf.setImage(with: URL(string: postCellModel.userPhotoUrl ?? ""))
+        }
         
         photos = postCellModel.photos ?? []
-        collectionView.isHidden = photos.isEmpty
         
+        collectionView.backgroundColor = .clear
+        collectionView.isHidden = photos.isEmpty
         collectionView.reloadData()
     }
 }
@@ -253,7 +263,6 @@ extension FeedTableViewCell: UICollectionViewDelegateFlowLayout {
         }
     }
 }
-
 
 private extension FeedTableViewCell {
     

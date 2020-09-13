@@ -8,7 +8,12 @@
 
 import UIKit
 
+protocol FeedViewControllerDelegate: class {
+    func logout()
+}
+
 class FeedViewController: UIViewController {
+    weak var delegate: FeedViewControllerDelegate!
     
     let tableView = UITableView()
     
@@ -40,6 +45,7 @@ class FeedViewController: UIViewController {
         tableView.refreshControl = refreshControl
         
         navigationItem.titleView = titleView
+        titleView.delegate = self
         
         tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
         
@@ -93,6 +99,7 @@ class FeedViewController: UIViewController {
             } else if let unwrappedUserDataError = self.userDataError {
                 self.showError(unwrappedUserDataError)
             }
+            
             self.feedList = self.firstPageData
             guard let unwrappedUserData = self.userData else { return }
             self.titleView.configure(with: unwrappedUserData)
@@ -124,7 +131,8 @@ class FeedViewController: UIViewController {
     }
     
     func loadNextPage() {
-        guard !isLoading else { return }
+        
+        if isLoading || nextFrom == nil { return }
         isLoading = true
         
         DispatchQueue.global(qos: .background).async {
@@ -162,5 +170,19 @@ extension FeedViewController: UITableViewDataSource {
 extension FeedViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
+    }
+}
+
+extension FeedViewController: TitleViewDelegate {
+    func logout() {
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        
+        alertController.addAction(UIAlertAction(title: "Sign out", style: .destructive, handler: { [delegate] (_) in
+            delegate?.logout()
+        }))
+        
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
+        present(alertController, animated: true, completion: nil)
     }
 }
