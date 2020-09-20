@@ -21,6 +21,7 @@ class FeedViewController: UIViewController {
     private let tableCellId = "cellId"
     private let titleView = TitleView()
     
+    private var footerView = FooterView()
     var nextFrom: String?
     var firstPageData = [PostCellModel]()
     var userData: TitleViewModel?
@@ -43,6 +44,7 @@ class FeedViewController: UIViewController {
         
         refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
         tableView.refreshControl = refreshControl
+        tableView.tableFooterView = footerView
         
         navigationItem.titleView = titleView
         titleView.delegate = self
@@ -56,6 +58,7 @@ class FeedViewController: UIViewController {
     
     @objc private func refresh(sender: UIRefreshControl) {
         loadData()
+        footerView.clearLabel()
     }
     
     private func loadData() {
@@ -131,9 +134,13 @@ class FeedViewController: UIViewController {
     }
     
     func loadNextPage() {
+        if nextFrom == nil {
+            footerView.set(title: "Amount of posts: \(feedList.count)")
+        }
         
         if isLoading || nextFrom == nil { return }
         isLoading = true
+        footerView.showActivityIndicator()
         
         DispatchQueue.global(qos: .background).async {
             self.feedManager.getFeedData(self.nextFrom) { [weak self] result in
@@ -147,6 +154,7 @@ class FeedViewController: UIViewController {
                         self.feedList += data.0
                     }
                     self.isLoading = false
+                    self.footerView.hideActivityIndicator()
                 }
             }
         }

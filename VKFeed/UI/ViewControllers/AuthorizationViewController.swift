@@ -30,7 +30,6 @@ class AuthorizationViewController: UIViewController {
         view.addSubview(loginButton)
         
         setupLayout()
-        
     }
     
     private func setupLayout() {
