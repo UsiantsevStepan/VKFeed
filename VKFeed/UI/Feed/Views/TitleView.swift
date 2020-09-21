@@ -6,7 +6,6 @@
 //  Copyright © 2020 Stepan Usiantsev. All rights reserved.
 //
 
-import Foundation
 import UIKit
 import Kingfisher
 
@@ -24,8 +23,8 @@ class TitleView: UIView {
         super.init(frame: frame)
         
         addSubviews()
-        setConstraints()
         configureSubviews()
+        setConstraints()
     }
     
     required init?(coder: NSCoder) {

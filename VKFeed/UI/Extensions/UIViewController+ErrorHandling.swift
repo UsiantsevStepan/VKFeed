@@ -6,7 +6,6 @@
 //  Copyright © 2020 Stepan Usiantsev. All rights reserved.
 //
 
-import Foundation
 import UIKit
 
 extension UIViewController {

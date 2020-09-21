@@ -9,8 +9,7 @@
 import UIKit
 
 class AuthorizationViewController: UIViewController {
-    
-    private var authenticationService: AuthorizationManager = AppDelegate.shared.authenticationService
+    private let authenticationService: AuthorizationManager = AppDelegate.shared.authenticationService
     
     let loginButton: UIButton = {
         let button = UIButton()

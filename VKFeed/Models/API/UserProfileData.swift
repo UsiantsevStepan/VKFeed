@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct TitleViewData: Decodable {
+struct UserProfileData: Decodable {
     let response: [UserResponse]
 }
 

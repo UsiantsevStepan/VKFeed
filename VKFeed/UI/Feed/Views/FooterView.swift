@@ -9,26 +9,14 @@
 import UIKit
 
 class FooterView: UIView {
-    private var postsAmountLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = .black
-        label.font = .boldSystemFont(ofSize: 16)
-        label.textAlignment = .center
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    private var pageActivityIndicator: UIActivityIndicatorView = {
-        let activityIndicator = UIActivityIndicatorView()
-        activityIndicator.style = .gray
-        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
-        return activityIndicator
-    }()
+    private var postsAmountLabel = UILabel()
+    private var pageActivityIndicator = UIActivityIndicatorView()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
         addSubviews()
+        configureSubviews()
         setConstraints()
     }
     
@@ -49,6 +37,16 @@ class FooterView: UIView {
         pageActivityIndicator.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
     }
     
+    func configureSubviews() {
+        postsAmountLabel.textColor = .black
+        postsAmountLabel.font = .boldSystemFont(ofSize: 16)
+        postsAmountLabel.textAlignment = .center
+        postsAmountLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        pageActivityIndicator.style = .gray
+        pageActivityIndicator.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
     func showActivityIndicator() {
         pageActivityIndicator.startAnimating()
     }
@@ -58,7 +56,7 @@ class FooterView: UIView {
     }
     
     func set(title: String?) {
-        pageActivityIndicator.stopAnimating()
+        hideActivityIndicator()
         postsAmountLabel.text = title
     }
     

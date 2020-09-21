@@ -23,8 +23,4 @@ extension EndpointProtocol {
     var apiVersion: String {
         return "5.122"
     }
-    
-    var startFrom: String {
-        return ""
-    }
 }

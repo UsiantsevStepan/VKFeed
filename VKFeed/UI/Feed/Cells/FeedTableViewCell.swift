@@ -6,12 +6,10 @@
 //  Copyright © 2020 Stepan Usiantsev. All rights reserved.
 //
 
-import Foundation
 import UIKit
 import Kingfisher
 
 class FeedTableViewCell: UITableViewCell {
-    
     private var postView = UIView()
     
     private var stackView = UIStackView()
@@ -36,13 +34,14 @@ class FeedTableViewCell: UITableViewCell {
     
     private var photos = [String]()
     
+    static let reuseID = "FeedTableViewCellReuseID"
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         addSubviews()
         setConstraints()
         configureSubviews()
-        
     }
     
     required init?(coder: NSCoder) {
@@ -222,9 +221,9 @@ class FeedTableViewCell: UITableViewCell {
         textView.isHidden = (postCellModel.text ?? "").isEmpty
         textView.text = postCellModel.text
         
-        if postCellModel.userPhotoUrl == nil {
+        if let groupPhotoURL = postCellModel.groupPhotoUrl {
             userPhotoImageView.kf.indicatorType = .activity
-            userPhotoImageView.kf.setImage(with: URL(string: postCellModel.groupPhotoUrl ?? ""))
+            userPhotoImageView.kf.setImage(with: URL(string: groupPhotoURL))
         } else {
             userPhotoImageView.kf.indicatorType = .activity
             userPhotoImageView.kf.setImage(with: URL(string: postCellModel.userPhotoUrl ?? ""))

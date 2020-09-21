@@ -9,7 +9,6 @@
 import Foundation
 
 struct TitleViewModel {
-    
     let userName: String?
     let userPhotoUrl: String?
 }

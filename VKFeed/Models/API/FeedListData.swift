@@ -85,7 +85,6 @@ struct Photo: Decodable {
         guard let size = sizes.first(where: {$0.type == .x}) else { return sizes.last }
         return size
     }
-    
 }
 
 struct Size: Decodable {

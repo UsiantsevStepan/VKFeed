@@ -9,7 +9,6 @@
 import Foundation
 
 class DataParser {
-    
     private let decoder: JSONDecoder
     
     init(decoder: JSONDecoder? = nil) {
@@ -23,11 +22,6 @@ class DataParser {
     }
     
     func parse<T: Decodable>(withData data: Data, to type: T.Type) -> T? {
-        do {
-            return try decoder.decode(type, from: data)
-        } catch {
-            print(error.localizedDescription)
-            return nil
-        }
+        return try? decoder.decode(type, from: data)
     }
 }

@@ -9,7 +9,6 @@
 import Foundation
 
 struct PostCellModel {
-    
     let text: String?
     let userName: String?
     let userPhotoUrl: String?

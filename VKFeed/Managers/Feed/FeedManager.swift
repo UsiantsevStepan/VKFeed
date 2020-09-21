@@ -9,7 +9,6 @@
 import Foundation
 
 class FeedManager {
-    
     enum FeedManagerError: LocalizedError {
         case parseError
         
@@ -44,7 +43,7 @@ class FeedManager {
             case let .failure(error):
                 completion(.failure(error))
             case let .success(data):
-                guard let titleViewData = self.dataParser.parse(withData: data, to: TitleViewData.self) else {
+                guard let titleViewData = self.dataParser.parse(withData: data, to: UserProfileData.self) else {
                     completion(.failure(FeedManagerError.parseError))
                     return
                 }
@@ -62,7 +61,6 @@ class FeedManager {
         }
         
         let groups = feedData.response.groups.reduce([Int : Group]()) { (result, group) -> [Int : Group] in
-            
             var result = result
             result[-group.id] = group
             
@@ -96,7 +94,7 @@ class FeedManager {
         }
     }
     
-    private func createUserModel(from userData: TitleViewData) -> TitleViewModel {
+    private func createUserModel(from userData: UserProfileData) -> TitleViewModel {
         
         let firstName = userData.response.first?.firstName ?? ""
         let lastName = userData.response.first?.lastName ?? ""

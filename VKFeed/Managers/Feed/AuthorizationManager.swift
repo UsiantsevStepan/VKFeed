@@ -16,7 +16,6 @@ protocol AuthenticationManagerDelegate: class {
 }
 
 class AuthorizationManager: NSObject, VKSdkDelegate, VKSdkUIDelegate {
-    
     private let vkSDK: VKSdk
     private var appId = "7555630"
     

@@ -15,28 +15,24 @@ protocol FeedViewControllerDelegate: class {
 class FeedViewController: UIViewController {
     weak var delegate: FeedViewControllerDelegate!
     
-    let tableView = UITableView()
-    
-    private let feedManager = FeedManager()
-    private let tableCellId = "cellId"
-    private let titleView = TitleView()
-    
-    private var footerView = FooterView()
-    var nextFrom: String?
-    var firstPageData = [PostCellModel]()
-    var userData: TitleViewModel?
-    var feedDataError: Error?
-    var userDataError: Error?
-    var isLoading = false
-    var feedList = [PostCellModel]() {
+    private var firstPageData = [PostCellModel]()
+    private var userData: TitleViewModel?
+    private var feedDataError: Error?
+    private var userDataError: Error?
+    private var feedList = [PostCellModel]() {
         didSet {
             tableView.reloadData()
         }
     }
-    var refreshControl: UIRefreshControl = {
-        let refreshControl = UIRefreshControl()
-        return refreshControl
-    }()
+    
+    private var nextFrom: String?
+    private var isLoading = false
+    private var refreshControl = UIRefreshControl()
+    
+    private let feedManager = FeedManager()
+    private let titleView = TitleView()
+    private let footerView = FooterView()
+    private let tableView = UITableView()
     
     override func viewDidLoad() {
         tableView.delegate = self
@@ -96,7 +92,9 @@ class FeedViewController: UIViewController {
             }
         }
         
-        group.notify(queue: .main) {
+        group.notify(queue: .main) { [weak self] in
+            guard let self = self else { return }
+            
             if let unwrappedFeedDataError = self.feedDataError {
                 self.showError(unwrappedFeedDataError)
             } else if let unwrappedUserDataError = self.userDataError {
@@ -119,8 +117,7 @@ class FeedViewController: UIViewController {
         tableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
         tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
         tableView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        tableView.register(FeedTableViewCell.self, forCellReuseIdentifier: tableCellId)
-        tableView.reloadData()
+        tableView.register(FeedTableViewCell.self, forCellReuseIdentifier: FeedTableViewCell.reuseID)
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -167,7 +164,7 @@ extension FeedViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: tableCellId, for: indexPath) as! FeedTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: FeedTableViewCell.reuseID, for: indexPath) as! FeedTableViewCell
         cell.configure(with: feedList[indexPath.row])
         cell.selectionStyle = .none
         
@@ -176,9 +173,7 @@ extension FeedViewController: UITableViewDataSource {
 }
 
 extension FeedViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableView.automaticDimension
-    }
+    
 }
 
 extension FeedViewController: TitleViewDelegate {
